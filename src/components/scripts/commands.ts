@@ -8,6 +8,8 @@
 * exit
 */
 
+import axios from "axios";
+import cheerio from 'cheerio';
 import { app } from "electron";
 
 let error = false;
@@ -40,15 +42,15 @@ const checkOptions = (args: any[], flags: string | any[] | null, count: number) 
             return;
         }
         else {
-            if (flags === null && options.length > 0 && !options.includes(undefined)){
+            if (flags === null && options.length > 0 && !options.includes(undefined)) {
                 error = true;
                 termwindow.append(span("status-fail", `'${options[0]}' does not match the supported flags.\n`));
                 return;
             }
-            if (flags){
-                for (const f of flags){
+            if (flags) {
+                for (const f of flags) {
                     for (const p of options) {
-                        if (f === p){
+                        if (f === p) {
                             error = false;
                             return;
                         }
@@ -57,8 +59,8 @@ const checkOptions = (args: any[], flags: string | any[] | null, count: number) 
                         }
                     }
                 }
-                if (error){
-                    termwindow.append(span("status-fail", `'${options[0]}' does not match the supported flags.\n`));
+                if (error) {
+                    termwindow.append(span("status-fail", `'${options[0]}' does not match the supported flags2.\n`));
                 }
             }
         }
@@ -72,14 +74,14 @@ const checkOptions = (args: any[], flags: string | any[] | null, count: number) 
 const getHelp = (command: string) => {
     commands_.forEach(cmd => {
         if (command === cmd.name) {
-            
+
             // print the usage with options if it has any
             if (cmd.args) {
                 termwindow.append(`${cmd.description}\nUsage:\n ${cmd.usage}\nOptions\n `);
-                let descs : string[] = [...cmd.argsd]; // gotta copy the array because ref types are dumb
+                let descs: string[] = [...cmd.argsd]; // gotta copy the array because ref types are dumb
                 for (const arg of cmd.args) {
                     termwindow.append(`${arg} : `);
-                    for(const d of descs){
+                    for (const d of descs) {
                         termwindow.append(`${d}\n `);
                         descs.shift();
                         break;
@@ -100,30 +102,20 @@ const manual = (args: any[]) => {
         getHelp("manual");
         return;
     }
-    if (!error){
+    if (!error) {
         showMainMenu();
     }
 }
 
-const list = (args: any[]) => {
-    let options = ["-s", "-e", "-k", "-t"];
+const search = (args: any[]) => {
+    let options = ["-s", "-e", "-k", "-t", "-j"];
     checkOptions(args, options, 2);
     if (helpflag) {
-        getHelp("list");
+        getHelp("search");
         return;
     }
     if (!error) {
         termwindow.append("e\n");
-    }
-}
-const close_ = (args: any[]) => {
-    checkOptions(args, null, 1);
-    if (helpflag) {
-        getHelp("close");
-        return;
-    }
-    if (!error) {
-        termwindow.append("h\n");
     }
 }
 const exit = (args: any[]) => {
@@ -148,55 +140,137 @@ const help = (args: any[]) => {
         })
     }
 }
-const echo = (args: any[]) => {
+const echo = async (args: any[]) => {
     checkOptions(args, null, 2);
     if (helpflag) {
         getHelp("echo");
         return;
     }
     if (!error) {
+        await sleep(5000);
         termwindow.append(`${args}\n`);
+    }
+}
+const access = async (args: any[]) => {
+    //let options = ["-rnd"];
+    checkOptions(args, null, 1);
+    if (helpflag) {
+        getHelp("access");
+        return;
+    }
+    if (!error) {
+        if (!args[0].startsWith("scp-")) {
+            termwindow.append("no\n");
+            return;           
+        }
+        const url = `http://scp-wiki.wikidot.com/${args[0]}`;
+        const a = axios.create();
+        await a.get(url).then(
+            (html: { data: any; }) => {
+                const data = html.data;
+                const content = cheerio.load(data);
+                const x = content("#page-content");
+                const rating = content(".page-rate-widget-box");
+                const footer = content(".footer-wikiwalk-nav");
+                const license = content(".licensebox");
+                const mobileexit = content(".mobile-exit");
+                const iframe = content("iframe");
+                const info = content(".info-container");
+                rating.remove();
+                footer.remove();
+                license.remove();
+                mobileexit.remove();
+                iframe.remove();
+                info.remove();
+                termwindow.append(pageData(x.html()?.trim()));
+                
+            }
+        ).catch(console.error);
+    }
+}
+const security = (args: any[]) => {
+    checkOptions(args, null, 1);
+    if (helpflag) {
+        getHelp("security");
+        return;
+    }
+    if (!error) {
+        termwindow.append("security level not available\n");
+    }
+}
+const clear = (args: any[]) => {
+    checkOptions(args, null, 1);
+    if (!error) {
+        termwindow_.textContent = "";
+    }
+}
+
+const test = async (args: any[]) => {
+    checkOptions(args, null, 1);
+    if (!error) {
+        let x = ["test", span("status-fail", "test"), pathBox("test")];
+        await termwindow.append(pageData(x));
     }
 }
 
 const commands_ = [
     {
-        "name": "list",
-        "usage": "list [options]",
-        "args": ["-s", "-e", "-k", "-t"],
-        "argsd": ["safe scps", "euclid scps", "keter scps", "thaumiel scps"],
-        "description": "lists the scps",
-        "function": list
+        "name": "search",
+        "usage": "search [flags]",
+        "args": ["-s", "-e", "-k", "-t", "-j"],
+        "argsd": ["safe scps", "euclid scps", "keter scps", "thaumiel scps", "joke scps"],
+        "description": "Lists all scps or filtered scps set by flags",
+        "function": search
     },
     {
         "name": "exit",
         "description": "exits the app",
-        "usage": "exit [options]",
+        "usage": "exit",
         "function": exit
     },
     {
         "name": "help",
         "description": "brings up help command",
-        "usage": "help [options]",
+        "usage": "help",
         "function": help
     },
     {
         "name": "echo",
         "description": "A test command",
-        "usage": "echo [options] [message]",
+        "usage": "echo [message]",
         "function": echo
-    },
-    {
-        "name": "close",
-        "description": "Closes things idk yet",
-        "usage": "close [options]",
-        "function": close_
     },
     {
         "name": "manual",
         "description": "Displays the help menu",
-        "usage": "manual [options]",
+        "usage": "manual",
         "function": manual
+    },
+    {
+        "name": "access",
+        "description": "Access a scp file",
+        "usage": "access [scp] [flags]",
+        "args": ["-rnd"],
+        "argsd": ["Displays a random scp file"],
+        "function": access
+    },
+    {
+        "name": "security",
+        "description": "Displays security level of a scp file",
+        "usage": "security [scp] [options]",
+        "function": security
+    },
+    {
+        "name": "test",
+        "description": "test command",
+        "usage": "test [whatever shit your testing idk]",
+        "function": test
+    },
+    {
+        "name": "clear",
+        "description": "Clears the terminal",
+        "usage": "clear [flags]",
+        "function": clear
     }
 ]
 exports.cmdlist = commands_;

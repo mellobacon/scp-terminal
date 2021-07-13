@@ -1,8 +1,17 @@
 const $ = require('../components/util/jquery.js');
 const commands = require("../components/scripts/commands.js").cmdlist;
+const path = require("path");
 
 const termwindow = $(".window");
 const termwindow_ = document.querySelector(".window")!; // for scrolling to work
+const page = $(".page-data");
+/**
+ * Timeout but better
+ * @param ms time in milliseconds
+ */
+const sleep = (ms: any) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 /**
  * Makes a styled prompt box
@@ -10,7 +19,7 @@ const termwindow_ = document.querySelector(".window")!; // for scrolling to work
  * @returns a span with the class 'prompt-box' with a string inside
  */
 const promptBox = (message: string) => {
-    return "<span class=\"prompt-box\">" + message + "</span>"
+    return "<span class=\"prompt-box\">" + message + "</span>";
 }
 
 /**
@@ -19,7 +28,7 @@ const promptBox = (message: string) => {
  * @returns a span with the class 'path-box' with a string inside
  */
 const pathBox = (message: string) => {
-    return "<span class=\"path-box\">" + message + "</span>"
+    return "<span class=\"path-box\">" + message + "</span>";
 }
 
 /**
@@ -29,7 +38,11 @@ const pathBox = (message: string) => {
  * @returns a span with the class 'power-box'
  */
 const powerBox = (prompt: string, path: string) => {
-    return "<span class=\"power-box\">" + prompt + path + "</span>"
+    return "<span class=\"power-box\">" + prompt + path + "</span>";
+}
+
+const pageData = (...content: any) => {
+    return "<div class=\"page-data\">" + content + "</div>";
 }
 
 /**
@@ -39,7 +52,7 @@ const powerBox = (prompt: string, path: string) => {
  * @returns a span with the set class name
  */
 const span = (classname: string, message: string) => {
-    return "<span class=\"" + classname + "\">" + message + "</span>"
+    return "<span class=\"" + classname + "\">" + message + "</span>";
 }
 
 /**
@@ -117,10 +130,10 @@ const showDatabase = () => {
     inManual = false;
     inDatabase = true;
     termwindow.append("Welcome to the SCP Foundation Knowledge Base. Enter a number to choose an option. For commands, type 'help'. To exit, type 'exit'.\n");
-    termwindow.append("1. Search database\n2. Back to previous menu.\n");
+    termwindow.append("1. Groups of Interest\n2. Anomalous Items\n3. Extranormal Events\n4. Unexplained Locations\n5. SCP Database\n6. Back to previous menu.\n");
 }
 
-const processCommand = () => {
+const processCommand = async () => {
 
     // Divide the command into the name and its arguments
     let args = command.split(" ");
@@ -138,27 +151,39 @@ const processCommand = () => {
         }
     }
     else if (inManual) {
-        if (command === "1") {
+        if (command === "1" || command === "2" || command === "3" || command === "4") {
             termwindow.append(span("status-fail", "Error.\n"));
         }
-        else if (command === "2") {
+        else if (command === "5") {
             // go to menu
             showMainMenu();
         }
     }
     else if (inDatabase) {
-        if (command === "1") {
+        if (command === "1" || command === "2" || command === "3" || command === "4" || command === "5") {
             termwindow.append(span("status-fail", "Error. Cannot access database at this time.\n"));
         }
-        else if (command === "2") {
+        else if (command === "6") {
             showMainMenu();
         }
     }
 
     // Execute the command or return error message. Numbers for menu options do not get processed here.
     if (isNaN(parseInt(command))) {
-        if (typedCommand == null) termwindow.append(span("status-fail", `Command not found: ${command}\n`)); // "Command not found: " + command + "\n"
-        else typedCommand.function(args);
+        if (inDatabase || inManual || inMenu) {
+            console.log(command);
+            if (command === "manual") {
+                inManual = false;
+                inMenu = false;
+                inDatabase = false;
+                command = "";
+                appendPrompt();
+                return;
+            }
+            termwindow.append(span("status-fail", "Not a supported menu option. To use commands, exit the menu by typing 'manual'\n"));
+        }
+        else if (typedCommand == null) termwindow.append(span("status-fail", `Command not found: ${command}\n`));
+        else await typedCommand.function(args);
     }
 
     // Clear the command for next input
@@ -172,12 +197,13 @@ const processCommand = () => {
 const startTerminal = () => {
     termwindow.append("SCPnet v1.3.0 active\n");
     setLogin();
+
     termwindow.append("Welcome to SCPnet v 1.3.0. For commands, type 'help'. To exit, type 'exit'. For more info, type 'manual'.\n")
     appendPrompt();
 }
 
 // Allows typing
-document.addEventListener("keypress", (e) => {
+document.addEventListener("keypress", async (e) => {
     let key = e.which;
     switch (key) {
         case 13: // enter

@@ -24,6 +24,12 @@ function createWindow() {
     ipcMain.on("debug", () => {
         mainWindow.webContents.openDevTools();
     })
+    mainWindow.on("blur", () => {
+        mainWindow.webContents.send("unfocused");
+    })
+    mainWindow.on("focus", () => {
+        mainWindow.webContents.send("focused");
+    })
 }
 
 app.on("ready", createWindow);

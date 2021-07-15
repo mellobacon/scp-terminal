@@ -13,3 +13,11 @@ document.getElementById('minimize')!.addEventListener('click', () => {
 document.getElementById('file')!.addEventListener('click', () => {
     ipcRenderer.send('debug');
 })
+
+let win = document.getElementById("window");
+ipcRenderer.on("unfocused", () => {
+    win?.classList.toggle("pause-cursor");
+});
+ipcRenderer.on("focused", () => {
+    win?.classList.toggle("pause-cursor");
+});

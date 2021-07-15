@@ -25,7 +25,7 @@ html, body {
     margin: 20px;
     background-color: rgba(0, 0, 0, 0.815); /*rgba(255, 0, 0, 0.562)*/
 }
-.window {
+#window {
     padding: 10px;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -33,16 +33,21 @@ html, body {
     font-size: 15px;
     height: 100%;
 }
-.window::after {
+#window::after {
     display: inline-block;
     vertical-align: 0em;
-    width: 0.3em;
-    height: 1em;
+    width: 0.3em; /* 0.05em */
+    height: 1em; /* 1.5em */
     background: #ffffff;
     content: " ";
-    animation: blink 940ms steps(1) infinite;
-    margin-left: 3px;
-    line-height: 17px;
+    animation: blink 940ms steps(1) infinite; /* 1105ms */
+    margin-left: 3px; /* 0px */
+    line-height: 17px; /* 24px */
+}
+
+.pause-cursor::after {
+    /*animation-play-state: paused !important;*/
+    animation-name: none !important;
 }
 
 .prompt-box {
@@ -76,15 +81,15 @@ html, body {
     height: 35px !important;
 }
 
-.window::-webkit-scrollbar {
+#window::-webkit-scrollbar {
     width: 6px;
 	background-color: #F5F5F5;
 }
-.window::-webkit-scrollbar-track{
+#window::-webkit-scrollbar-track{
     box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     background-color: #F5F5F5;
 }
-.window::-webkit-scrollbar-thumb{
+#window::-webkit-scrollbar-thumb{
     background-color: #808080;
 }
 

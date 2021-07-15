@@ -1,13 +1,3 @@
-
-/**
-* list -objectclass
-* access -scpnumber
-* security -scpnumber
-* close
-* close -all
-* exit
-*/
-
 import axios from "axios";
 import cheerio from 'cheerio';
 import { app } from "electron";
@@ -107,7 +97,7 @@ const manual = (args: any[]) => {
     }
 }
 
-const search = (args: any[]) => {
+const search = async (args: any[]) => {
     let options = ["-s", "-e", "-k", "-t", "-j"];
     checkOptions(args, options, 2);
     if (helpflag) {
@@ -115,7 +105,69 @@ const search = (args: any[]) => {
         return;
     }
     if (!error) {
-        termwindow.append("e\n");
+        if (args[0] === "-s") {
+            const url = `http://scp-wiki.wikidot.com/system:page-tags/tag/safe`;
+            const a = axios.create();
+            await a.get(url).then(
+                (html: { data: any }) => {
+                    const data = html.data;
+                    const content = cheerio.load(data);
+                    const x = content("#tagged-pages-list");
+                    termwindow.append(pageData(x.html()?.trim()));
+                }
+            )
+        }
+        else if (args[0] === "-e") {
+            const url = `http://scp-wiki.wikidot.com/system:page-tags/tag/euclid`;
+            const a = axios.create();
+            await a.get(url).then(
+                (html: { data: any }) => {
+                    const data = html.data;
+                    const content = cheerio.load(data);
+                    const x = content("#tagged-pages-list");
+                    termwindow.append(pageData(x.html()?.trim()));
+                }
+            )
+        }
+        else if (args[0] === "-k") {
+            const url = `http://scp-wiki.wikidot.com/system:page-tags/tag/keter`;
+            const a = axios.create();
+            await a.get(url).then(
+                (html: { data: any }) => {
+                    const data = html.data;
+                    const content = cheerio.load(data);
+                    const x = content("#tagged-pages-list");
+                    termwindow.append(pageData(x.html()?.trim()));
+                }
+            )
+        }
+        else if (args[0] === "-t") {
+            const url = `http://scp-wiki.wikidot.com/system:page-tags/tag/thaumiel`;
+            const a = axios.create();
+            await a.get(url).then(
+                (html: { data: any }) => {
+                    const data = html.data;
+                    const content = cheerio.load(data);
+                    const x = content("#tagged-pages-list");
+                    termwindow.append(pageData(x.html()?.trim()));
+                }
+            )
+        }
+        else if (args[0] === "-j") {
+            const url = `http://scp-wiki.wikidot.com/joke-scps/noredirect/true`;
+            const a = axios.create();
+            await a.get(url).then(
+                (html: { data: any }) => {
+                    const data = html.data;
+                    const content = cheerio.load(data);
+                    const x = content(".content-panel");
+                    termwindow.append(pageData(x.html()?.trim()));
+                }
+            )
+        }
+        else {
+            termwindow.append("Full list of SCPs not available\n");
+        }
     }
 }
 const exit = (args: any[]) => {
@@ -152,7 +204,6 @@ const echo = async (args: any[]) => {
     }
 }
 const access = async (args: any[]) => {
-    //let options = ["-rnd"];
     checkOptions(args, null, 1);
     if (helpflag) {
         getHelp("access");
@@ -160,8 +211,33 @@ const access = async (args: any[]) => {
     }
     if (!error) {
         if (!args[0].startsWith("scp-")) {
+            if (args[0] === "random") {
+                const url = `http://scp-wiki.wikidot.com/random:random-scp`;
+                const a = axios.create();
+                await a.get(url).then(
+                    (html: { data: any; }) => {
+                        const data = html.data;
+                        const content = cheerio.load(data);
+                        const x = content("#page-content");
+                        const rating = content(".page-rate-widget-box");
+                        const footer = content(".footer-wikiwalk-nav");
+                        const license = content(".licensebox");
+                        const mobileexit = content(".mobile-exit");
+                        const iframe = content("iframe");
+                        const info = content(".info-container");
+                        rating.remove();
+                        footer.remove();
+                        license.remove();
+                        mobileexit.remove();
+                        iframe.remove();
+                        info.remove();
+                        termwindow.append(pageData(x.html()?.trim()));
+                    }
+                ).catch(console.error);
+                return;
+            }
             termwindow.append("no\n");
-            return;           
+            return;
         }
         const url = `http://scp-wiki.wikidot.com/${args[0]}`;
         const a = axios.create();
@@ -183,7 +259,6 @@ const access = async (args: any[]) => {
                 iframe.remove();
                 info.remove();
                 termwindow.append(pageData(x.html()?.trim()));
-                
             }
         ).catch(console.error);
     }
@@ -206,10 +281,17 @@ const clear = (args: any[]) => {
 }
 
 const test = async (args: any[]) => {
-    checkOptions(args, null, 1);
+    let op = ["-t"];
+    if (helpflag) {
+        getHelp("test");
+        return;
+    }
+    checkOptions(args, op, 1);
     if (!error) {
-        let x = ["test", span("status-fail", "test"), pathBox("test")];
-        await termwindow.append(pageData(x));
+        if (args[0] === "-t") {
+            await termwindow.append(pageData("success"));
+        }
+        await termwindow.append(pageData("test"));
     }
 }
 

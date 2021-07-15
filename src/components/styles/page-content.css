@@ -1,12 +1,9 @@
-/*
 .page-data div[style] {
-    background-color: rgba(255, 255, 255, 0.356) !important;
-    margin: 0 !important;
+    background-color: transparent !important;
 }
-*/
 
 .page-data blockquote {
-    background-color: rgba(255, 255, 255, 0.356) !important;
+    background-color: transparent !important;
     border: dotted white 1px;
 }
 .page-data ul {
@@ -22,6 +19,7 @@
     background-color: #3333338a;
     padding: 15px;
     margin: 15px;
+    white-space: normal;
 }
 
 .page-data .image {
@@ -56,4 +54,9 @@
 .scp-image-block.block-center {
     margin-right: auto;
     margin-left: auto;
+}
+
+.scp-image-block.block-left {
+    float: left;
+    clear: left;
 }

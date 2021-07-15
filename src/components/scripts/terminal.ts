@@ -2,8 +2,8 @@ const $ = require('../components/util/jquery.js');
 const commands = require("../components/scripts/commands.js").cmdlist;
 const path = require("path");
 
-const termwindow = $(".window");
-const termwindow_ = document.querySelector(".window")!; // for scrolling to work
+const termwindow = $("#window");
+const termwindow_ = document.querySelector("#window")!; // for scrolling to work
 const page = $(".page-data");
 /**
  * Timeout but better
@@ -233,6 +233,14 @@ document.addEventListener("keydown", (e) => {
         }
         scroll_();
     }
+})
+
+// Cursor handling
+document.addEventListener("keydown", (e) => {
+    termwindow_.classList.add("pause-cursor");
+})
+document.addEventListener("keyup", (e) => {
+    termwindow_.classList.remove("pause-cursor");
 })
 
 startTerminal();

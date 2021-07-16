@@ -92,6 +92,10 @@ const powerbox_ = powerBox(prompt_, path_);
  */
 const appendPrompt = () => {
     termwindow.append(`${powerbox_} `);
+
+    //termwindow.append(`┌ root@sudo-user\n`)
+    //termwindow.append("└ $ ");
+    //termwindow.append("root@sudouser ");
     scroll_();
 }
 

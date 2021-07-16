@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap');
 
 * {
     box-sizing: border-box;
@@ -10,7 +12,9 @@ html, body {
     margin: 0vh;
     padding: 0vh;
     overflow: hidden;
-    font-family: 'Fira Code', monospace;
+    font-family: 'Barlow', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
+    /*font-family: 'Fira Code', monospace;*/
     background-color: rgba(17, 36, 39, 0.35);
     color: white;
 }
@@ -36,18 +40,32 @@ html, body {
 #window::after {
     display: inline-block;
     vertical-align: 0em;
-    width: 0.3em; /* 0.05em */
-    height: 1em; /* 1.5em */
     background: #ffffff;
     content: " ";
-    animation: blink 940ms steps(1) infinite; /* 1105ms */
-    margin-left: 3px; /* 0px */
-    line-height: 17px; /* 24px */
+    animation: blink 1105ms steps(1) infinite; /* 940 - old */
 }
 
 .pause-cursor::after {
-    /*animation-play-state: paused !important;*/
     animation-name: none !important;
+}
+.cursor-barred::after {
+    width: 0.05em;
+    height: 1.1em;
+    margin-left: 0px;
+    line-height: 17px;
+}
+.cursor-block::after {
+    width: 0.3em;
+    height: 1em;
+    margin-left: 0px;
+    line-height: 15px;
+}
+.cursor-underscore::after {
+    vertical-align: -0.5em !important;
+    width: 0.5em;
+    height: 0.05em;
+    margin-left: 0px;
+    line-height: 0px;
 }
 
 .prompt-box {

@@ -12,9 +12,9 @@ html, body {
     margin: 0vh;
     padding: 0vh;
     overflow: hidden;
-    font-family: 'Barlow', sans-serif;
+    /*font-family: 'Barlow', sans-serif;*/
     /*font-family: 'Roboto Condensed', sans-serif;*/
-    /*font-family: 'Fira Code', monospace;*/
+    font-family: 'Fira Code', monospace;
     background-color: rgba(17, 36, 39, 0.35);
     color: white;
 }
@@ -34,7 +34,7 @@ html, body {
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-y: auto;
-    font-size: 15px;
+    font-size: 14px;
     height: 100%;
 }
 #window::after {

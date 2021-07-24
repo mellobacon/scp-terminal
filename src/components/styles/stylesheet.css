@@ -15,19 +15,130 @@ html, body {
     /*font-family: 'Barlow', sans-serif;*/
     /*font-family: 'Roboto Condensed', sans-serif;*/
     font-family: 'Fira Code', monospace;
-    background-color: rgba(17, 36, 39, 0.35);
+    /*background-color: rgba(17, 36, 39, 0.35);*/
+    background-color: rgba(0, 0, 0, 0.7);
     color: white;
 }
 
+/*
+* TITLE BAR
+*/
+#titlebar {
+    width: 100vw;
+    height: 35px;
+    -webkit-app-region: drag;
+    display: flex;
+    padding: 10px;
+}
+#titlebar-content-left, #titlebar-content-right {
+    height: 35px;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    text-align: center;
+    padding-bottom: 10px;
+}
+#titlebar-content-left {
+    width: -webkit-fill-available;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-bottom: solid white 1px;
+}
+#titlebar-content-right {
+    width: calc(100vw - 300px);
+    margin-left: 20px;
+    margin-right: 10px;
+    border-bottom: solid white 1px;
+}
+
+#menu-buttons {
+    width: 80px;
+    -webkit-app-region: no-drag;
+    display: flex;
+}
+#menu-buttons .titlebar-button {
+    border-radius: 0 !important;
+    width: 100% !important;
+    height: 35px !important;
+    margin: 0 20px 0 0 !important;
+    text-align: center;
+    font-size: 15px;
+    padding-top: 7px;
+}
+#file:hover, #view:hover {
+    text-decoration: underline;
+}
+
+#logo {
+    width: -webkit-fill-available;
+    border-right: solid white 1px;
+    font-size: 11px;
+    text-align: left;
+}
+#logo img {
+    float: left;
+    margin-top: -3px;
+}
+#logo-text {
+    margin-left: 45px;
+}
+
+#titlebar-buttons {
+    float: left;
+    height: 35px;
+    display: flex;
+    width: 120px;
+    -webkit-app-region: no-drag;
+    padding-left: 30px;
+}
+#titlebar .titlebar-button {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 50px;
+    margin: 0 5px 0 0;
+}
+
+#close:hover {
+    background-color: red;
+}
+#minimize, #maximize, #close {
+    border: solid 1px white;
+}
+#minimize:hover, #maximize:hover {
+    background-color: #9b9b9b;
+}
+
+#personnel-text {
+    display: flex;
+    padding-top: 10px;
+    height: 35px;
+    margin-top: 15px;
+    margin-right: 15px;
+    justify-content: flex-end;
+}
+
+.personnel-title, .personnel-site {
+    padding: 5px 10px 5px 10px;
+    font-size: 13px;
+}
+.personnel-title {
+    border-right: solid white 1px;
+}
+
+/*
+* TERMINAL WINDOW
+*/
 .term-container {
     /*margin-top: 5px;*/
-    border: 1px solid #c4c4c4;
+    /*border: 1px solid #c4c4c4;*/
 }
 
 .terminal {
-    height: calc(100vh - 78px);
+    height: calc(100vh - 125px);
     margin: 20px;
-    background-color: rgba(0, 0, 0, 0.815); /*rgba(255, 0, 0, 0.562)*/
+    /*background-color: rgb(0, 0, 0); /*rgba(255, 0, 0, 0.562)*/
+    border: 0.3px solid #818181;
 }
 #window {
     padding: 10px;
@@ -43,6 +154,15 @@ html, body {
     background: #ffffff;
     content: " ";
     animation: blink 1105ms steps(1) infinite; /* 940 - old */
+}
+#window-background {
+    /*background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("../../components/images/scplogo.png");*/
+    background-color: black;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 100%;
+    margin-top: calc(-100vh - -127px);
 }
 
 .pause-cursor::after {
@@ -111,6 +231,9 @@ html, body {
     background-color: #808080;
 }
 
+/*
+* OTHER STUFF
+*/
 @keyframes blink {
     50% {opacity: 0;}
 }
@@ -119,73 +242,6 @@ html, body {
     color: red;
 }
 
-#titlebar {
-    width: 100vw;
-    height: 35px;
-    background-color: #7e7e7e;
-    -webkit-app-region: drag;
-    display: flex;
-}
-#titlebar-content {
-    width: calc(100vw - 120px);
-    height: 35px;
-    color: white;
-    font-size: 20px;
-    display: flex;
-    text-align: center;
-}
-
-#menu-buttons {
-    width: 80px;
-    -webkit-app-region: no-drag;
-}
-#menu-buttons .titlebar-button {
-    border-radius: 0 !important;
-    width: 100% !important;
-    height: 35px !important;
-    margin: 0 !important;
-    text-align: center;
-    font-size: 15px;
-    padding-top: 7px;
-}
-#title {
-    width: 100%;
-    padding-top: 7px;
-    font-size: 15px;
-}
-
-#file {
-    background-color: #696969;
-}
-#file:hover {
-    background-color: #474747;
-}
-
-#titlebar-buttons {
-    float: left;
-    height: 35px;
-    display: flex;
-    width: 120px;
-    -webkit-app-region: no-drag;
-    padding-left: 30px;
-}
-#titlebar .titlebar-button {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    border-radius: 50px;
-    margin: 5px 5px 0 0;
-}
-
-#close {
-    background-color: #535353;
-}
-#close:hover {
-    background-color: red;
-}
-#minimize, #maximize {
-    background-color: #696969;
-}
-#minimize:hover, #maximize:hover {
-    background-color: #9b9b9b;
-}
+/*
+* MEDIA QUERY STUFF
+*/

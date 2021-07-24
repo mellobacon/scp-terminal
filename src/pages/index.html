@@ -12,21 +12,36 @@
 
     <body>
         <div id="titlebar">
-            <div id="titlebar-content">
+            <div id="titlebar-content-left">
                 <div id="menu-buttons">
                     <div class="titlebar-button" id="file">File</div>
+                    <div class="titlebar-button" id="view">View</div>
                 </div>
-                <div id="title">SCPnet v1.3.0</div>
+                <!--<div id="title">SCPnet v1.3.0</div>-->
             </div>
-            <div id="titlebar-buttons">
-                <div class="titlebar-button" id="minimize"></div>
-                <div class="titlebar-button" id="maximize"></div>
-                <div class="titlebar-button" id="close"></div>
+            <div id="titlebar-content-right">
+                <div id="logo">
+                    <img src="../components/images/scplogo.png" alt="" width="35px">
+                    <div id="logo-text">
+                        <div>SCP FOUNDATION</div>
+                        <div>SECURE. CONTAIN. PROTECT.</div>
+                    </div>
+                </div>
+                <div id="titlebar-buttons">
+                    <div class="titlebar-button" id="minimize"></div>
+                    <div class="titlebar-button" id="maximize"></div>
+                    <div class="titlebar-button" id="close"></div>
+                </div>
             </div>
+        </div>
+        <div id="personnel-text">
+            <div class="personnel-title">SCP Containment Specialist</div>
+            <div class="personnel-site">SITE-19</div>
         </div>
         <div class="term-container">
             <div class="terminal">
                 <div class="window cursor-block" id="window"></div>
+                <div id="window-background"></div>
             </div>
         </div>
     </body>

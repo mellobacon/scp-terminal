@@ -41,8 +41,26 @@ const powerBox = (prompt: string, path: string) => {
     return "<span class=\"power-box\">" + prompt + path + "</span>";
 }
 
+/**
+ * Makes a box for page data; Ideally for displaying scp data.
+ * @param content The content to be in the page data box
+ * @returns 
+ */
 const pageData = (...content: any) => {
     return "<div class=\"page-data\">" + content + "</div>";
+}
+
+const neofetch = (content: any[]) => {
+    for (const item of content) {
+        termwindow.append("<div class=\"neofetch\">" + item + "</div>");
+    }
+}
+
+const h3 = (string: string) => {
+    return `<h3 class="title3"> ${string} </h3>`;
+}
+const h5 = (string: string) => {
+    return `<h5 class="title5"> ${string} </h5>`;
 }
 
 /**
@@ -91,11 +109,11 @@ const powerbox_ = powerBox(prompt_, path_);
  * Appends the prompt to the terminal window
  */
 const appendPrompt = () => {
-    termwindow.append(`${powerbox_} `);
+    //termwindow.append(`${powerbox_} `);
 
     //termwindow.append(`┌ root@sudo-user\n`)
     //termwindow.append("└ $ ");
-    //termwindow.append("root@sudouser ");
+    termwindow.append("root@user:~$ ");
     scroll_();
 }
 
@@ -103,10 +121,10 @@ const appendPrompt = () => {
  * Renders login prompt (no functionality yet)
  */
 const setLogin = () => {
-    termwindow.append("Enter login credentials\n");
-    termwindow.append("Id: \n");
-    termwindow.append("Password: \n");
-    termwindow.append("Login successful.\n");
+    termwindow.append("Accessing classified information. Enter login credentials:\n");
+    termwindow.append("ID: ********** \n");
+    termwindow.append("Password: ******************** \n");
+    termwindow.append("Login successful.\n\n");
 }
 
 let inMenu = false;
@@ -114,7 +132,7 @@ const showMainMenu = () => {
     inMenu = true;
     inManual = false;
     inDatabase = false;
-    termwindow.append("Enter a number to choose a topic. For commands, type 'help'. To exit, type 'exit'.\n");
+    termwindow.append("Enter a number to choose a topic. To exit, type 'manual'.\n");
     termwindow.append("1. User Manual\n2. Knowledge Base\n");
 }
 
@@ -133,7 +151,7 @@ const showDatabase = () => {
     inMenu = false;
     inManual = false;
     inDatabase = true;
-    termwindow.append("Welcome to the SCP Foundation Knowledge Base. Enter a number to choose an option. For commands, type 'help'. To exit, type 'exit'.\n");
+    termwindow.append("Welcome to the SCP Foundation Knowledge Base. Enter a number to choose an option. To exit, type 'manual'.\n");
     termwindow.append("1. Groups of Interest\n2. Anomalous Items\n3. Extranormal Events\n4. Unexplained Locations\n5. SCP Database\n6. Back to previous menu.\n");
 }
 
@@ -199,7 +217,7 @@ const processCommand = async () => {
  * Renders things to the terminal on startup
  */
 const startTerminal = () => {
-    termwindow.append("SCPnet v1.3.0 active\n");
+    termwindow.append(`SCiPnet v1.3.0 ${span("status-success", "active")}\n\n`);
     setLogin();
 
     termwindow.append("Welcome to SCPnet v 1.3.0. For commands, type 'help'. To exit, type 'exit'. For more info, type 'manual'.\n")

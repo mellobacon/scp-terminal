@@ -1,11 +1,50 @@
+:root {
+    --corner-notch: polygon(
+        0 0,
+        100% 0,
+        100% calc(100% - 1rem + 2px),
+        calc(100% - 1rem + 2px) 100%,
+        0 100%
+      );
+    --corner-notch-with-outline: polygon(
+        -100% -100%,
+        200% 0,
+        100% calc(100% - 1rem + 2px),
+        calc(100% - 1rem + 2px) 100%,
+        0 800%, 0 0, 0 100%
+      );
+}
+
 .page-data div[style] {
     background-color: transparent !important;
 }
 
-.page-data blockquote {
-    background-color: transparent !important;
-    border: dotted white 1px;
+.page-data blockquote::before {
+    position: absolute;
+    content: "";
+    top: auto;
+    bottom: 13px;
+    right: -7px;
+    transform: rotate(-45deg);
+    width: 40px;
+    height: 2px;
+    z-index: 100;
+    background-color: rgb(70, 70, 70);
 }
+.page-data blockquote {
+    background-color: #7979792e !important;
+    border: solid rgb(70, 70, 70) 1px;
+    border-width: thin;
+    padding: 15px;
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        100% calc(100% - 1.9rem + 2px),
+        calc(100% - 1.9rem + 2px) 100%,
+        0 100%
+      );
+}
+
 .page-data ul {
     margin: 0;
 }
@@ -22,7 +61,7 @@
     white-space: normal;
 }
 
-.page-data .image {
+.page-data .image, .image-container .image {
     clear: both;
     text-align: center;
     background-color: #fff;
@@ -59,4 +98,43 @@
 .scp-image-block.block-left {
     float: left;
     clear: left;
+}
+
+.image-container .image {
+    max-width: 100% !important;
+    display: block;
+}
+
+.content-panel p a, .page-data blockquote p a, .page-data a {
+    background-color: rgb(255, 255, 255);
+    color: rgb(24, 24, 24);
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+.content-panel p a:hover, .page-data blockquote p a:hover, .page-data a:hover {
+    background-color: rgb(167, 167, 167);
+    color: black;
+}
+
+.content-panel img {
+    margin: 0 !important;
+}
+
+.footnoteref, .footnote-footer a {
+    text-decoration: none;
+    color: red !important;
+    background-color: transparent !important;
+}
+
+.wiki-content-table, td, th, tr {
+    margin-left: auto;
+    margin-right: auto;
+}
+.wiki-content-table {
+    border: none;
+}
+table, td, th, tr {
+    border: solid white 1px;
+    padding: 10px;
 }

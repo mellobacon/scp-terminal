@@ -4,6 +4,7 @@
 
 * {
     box-sizing: border-box;
+    position: relative;
 }
 
 html, body {
@@ -147,6 +148,11 @@ html, body {
     overflow-y: auto;
     font-size: 14px;
     height: 100%;
+    background-color: black;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.95)), url("../../components/images/scplogo.png");
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
 }
 #window::after {
     display: inline-block;
@@ -240,6 +246,18 @@ html, body {
 
 .status-fail {
     color: red;
+}
+
+.title3, .title5 {
+    text-align: center;
+}
+.title3 {
+    padding: 5px;
+    font-size: 25px;
+}
+.title5 {
+    margin: 0;
+    font-size: 15px;
 }
 
 /*

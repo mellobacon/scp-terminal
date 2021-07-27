@@ -1,6 +1,8 @@
 import axios from "axios";
 import cheerio from 'cheerio';
 import { app } from "electron";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 let error = false;
 let helpflag = false;
@@ -64,7 +66,8 @@ const checkOptions = (args: any[], flags: string | any[] | null, count: number) 
 const getHelp = (command: string) => {
     commands_.forEach(cmd => {
         if (command === cmd.name) {
-
+            termwindow.append(h5(cmd.name));
+            termwindow.append(`<hr>`);
             // print the usage with options if it has any
             if (cmd.args) {
                 termwindow.append(`${cmd.description}\nUsage:\n ${cmd.usage}\nOptions\n `);
@@ -81,6 +84,7 @@ const getHelp = (command: string) => {
             else {
                 termwindow.append(`${cmd.description}\nUsage: \n ${cmd.usage}\n`);
             }
+            termwindow.append(`<hr>`);
         }
     })
     helpflag = false;
@@ -187,9 +191,12 @@ const help = (args: any[]) => {
         return;
     }
     if (!error) {
+        termwindow.append(h3("Commands"));
+        termwindow.append("<hr>");
         commands_.forEach(cmd => {
-            termwindow.append(`${cmd.description}\nUsage:\n ${cmd.usage}\n\n`);
-        })
+            termwindow.append(`\n${cmd.description}\nUsage:\n ${cmd.usage}\n\n`);
+        });
+        termwindow.append("<hr>");
     }
 }
 const echo = async (args: any[]) => {
@@ -282,16 +289,13 @@ const clear = (args: any[]) => {
 
 const test = async (args: any[]) => {
     let op = ["-t"];
+    checkOptions(args, op, 1);
     if (helpflag) {
         getHelp("test");
         return;
     }
-    checkOptions(args, op, 1);
     if (!error) {
-        if (args[0] === "-t") {
-            await termwindow.append(pageData("success"));
-        }
-        await termwindow.append(pageData("test"));
+        termwindow.append("test");
     }
 }
 
@@ -301,36 +305,36 @@ const commands_ = [
         "usage": "search [flags]",
         "args": ["-s", "-e", "-k", "-t", "-j"],
         "argsd": ["safe scps", "euclid scps", "keter scps", "thaumiel scps", "joke scps"],
-        "description": "Lists all scps or filtered scps set by flags",
+        "description": "search - Lists all scps or filtered scps set by flags",
         "function": search
     },
     {
         "name": "exit",
-        "description": "exits the app",
+        "description": "exit - exits the app",
         "usage": "exit",
         "function": exit
     },
     {
         "name": "help",
-        "description": "brings up help command",
-        "usage": "help",
+        "description": "help - brings up help command",
+        "usage": "help || [command] -help",
         "function": help
     },
     {
         "name": "echo",
-        "description": "A test command",
+        "description": "echo - A test command",
         "usage": "echo [message]",
         "function": echo
     },
     {
         "name": "manual",
-        "description": "Displays the help menu",
+        "description": "manual - Displays the help menu",
         "usage": "manual",
         "function": manual
     },
     {
         "name": "access",
-        "description": "Access a scp file",
+        "description": "access - Access a scp file",
         "usage": "access [scp] [flags]",
         "args": ["-rnd"],
         "argsd": ["Displays a random scp file"],
@@ -338,20 +342,20 @@ const commands_ = [
     },
     {
         "name": "security",
-        "description": "Displays security level of a scp file",
+        "description": "security - Displays security level of a scp file",
         "usage": "security [scp] [options]",
         "function": security
     },
     {
         "name": "test",
-        "description": "test command",
+        "description": "test - test command",
         "usage": "test [whatever shit your testing idk]",
         "function": test
     },
     {
         "name": "clear",
-        "description": "Clears the terminal",
-        "usage": "clear [flags]",
+        "description": "clear - Clears the terminal",
+        "usage": "clear",
         "function": clear
     }
 ]

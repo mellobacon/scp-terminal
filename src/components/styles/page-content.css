@@ -61,6 +61,12 @@
     white-space: normal;
 }
 
+.page-data::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 .page-data .image, .image-container .image {
     clear: both;
     text-align: center;

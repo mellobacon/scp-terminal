@@ -1,4 +1,5 @@
-import axios from "axios";
+import { ipcRenderer } from "electron";
+import axios, { AxiosResponse } from "axios";
 import cheerio from 'cheerio';
 import { app } from "electron";
 import { readFileSync } from "fs";
@@ -8,7 +9,7 @@ let error = false;
 let helpflag = false;
 
 /**
- * Proccesses the options in a command
+ * Processes the options in a command
  * @param args the command args
  * @param flags the command flags. can be null
  * @param count number of args required
@@ -117,7 +118,13 @@ const search = async (args: any[]) => {
                     const data = html.data;
                     const content = cheerio.load(data);
                     const x = content("#tagged-pages-list");
+                    termwindow.append(h3("Safe SCPs"));
+                    termwindow.append(`<hr>`);
                     termwindow.append(pageData(x.html()?.trim()));
+                }
+            ).catch(
+                (error) => {
+                    console.log(error.response.data);
                 }
             )
         }
@@ -129,6 +136,8 @@ const search = async (args: any[]) => {
                     const data = html.data;
                     const content = cheerio.load(data);
                     const x = content("#tagged-pages-list");
+                    termwindow.append(h3("Euclid SCPs"));
+                    termwindow.append(`<hr>`);
                     termwindow.append(pageData(x.html()?.trim()));
                 }
             )
@@ -140,6 +149,8 @@ const search = async (args: any[]) => {
                 (html: { data: any }) => {
                     const data = html.data;
                     const content = cheerio.load(data);
+                    termwindow.append(h3("Keter SCPs"));
+                    termwindow.append(`<hr>`);
                     const x = content("#tagged-pages-list");
                     termwindow.append(pageData(x.html()?.trim()));
                 }
@@ -153,6 +164,8 @@ const search = async (args: any[]) => {
                     const data = html.data;
                     const content = cheerio.load(data);
                     const x = content("#tagged-pages-list");
+                    termwindow.append(h3("Thaumiel SCPs"));
+                    termwindow.append(`<hr>`);
                     termwindow.append(pageData(x.html()?.trim()));
                 }
             )
@@ -165,6 +178,8 @@ const search = async (args: any[]) => {
                     const data = html.data;
                     const content = cheerio.load(data);
                     const x = content(".content-panel");
+                    termwindow.append(h3("Joke SCPs"));
+                    termwindow.append(`<hr>`);
                     termwindow.append(pageData(x.html()?.trim()));
                 }
             )
@@ -181,7 +196,7 @@ const exit = (args: any[]) => {
         return;
     }
     if (!error) {
-        app.quit();
+        ipcRenderer.send("exit");
     }
 }
 const help = (args: any[]) => {
@@ -243,7 +258,7 @@ const access = async (args: any[]) => {
                 ).catch(console.error);
                 return;
             }
-            termwindow.append("no\n");
+            termwindow.append("no\n"); 
             return;
         }
         const url = `http://scp-wiki.wikidot.com/${args[0]}`;

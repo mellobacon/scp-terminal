@@ -122,9 +122,10 @@ const appendPrompt = () => {
  */
 const setLogin = () => {
     termwindow.append("Accessing classified information. Enter login credentials:\n");
-    termwindow.append("ID: ********** \n");
-    termwindow.append("Password: ******************** \n");
-    termwindow.append("Login successful.\n\n");
+    termwindow.append("Please enter Foundation ID:\n > ********** \n");
+    termwindow.append("Please enter password:\n > ******************** \n\n");
+    termwindow.append("Password accepted. Validating...\n");
+    termwindow.append(span("status-success", "Clearance granted. ") + "Welcome authorized personnel.\n\n");
 }
 
 let inMenu = false;
@@ -142,7 +143,7 @@ const showUserManual = () => {
     inMenu = false;
     inDatabase = false;
     termwindow.append("Welcome to the User Manual. If you have any doubts about The Foundation you can resolve them here.\nEnter a number to choose a topic.\n");
-    termwindow.append("1. Object Classes\n2.Personnel\n3.Facilities\n4.Task Forces\n5. Exit to previous menu\n")
+    termwindow.append("1. Object Classes\n2. Personnel\n3. Facilities\n4. Task Forces\n5. Exit to previous menu\n")
     //termwindow.append(span("status-fail", "User Manual not found. Type '2' to exit.\n"));
 }
 
@@ -217,7 +218,9 @@ const processCommand = async () => {
  * Renders things to the terminal on startup
  */
 const startTerminal = () => {
-    termwindow.append(`SCiPnet v1.3.0 ${span("status-success", "active")}\n\n`);
+    termwindow.append(`SCiPnet Data Network [version 1.3.0] ${span("status-success", "active")}\n\n`);
+    termwindow.append(span("status-red-alert", "WARNING. THE SCP FOUNDATION DATABASE IS CLASSIFIED! ACCESS BY UNAUTHORIZED PERSONNEL IS STRICTLY PROHIBITED! PERPETRATORS WILL BE TRACKED, LOCATED, AND DETAINED!\n\n"));
+
     setLogin();
 
     termwindow.append("Welcome to SCPnet v 1.3.0. For commands, type 'help'. To exit, type 'exit'. For more info, type 'manual'.\n")

@@ -51,3 +51,7 @@ app.on("activate", () => {
         createWindow();
     }
 })
+
+ipcMain.on("exit", () => {
+    app.quit();
+})

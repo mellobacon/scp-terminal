@@ -17,9 +17,11 @@
 
 .page-data div[style] {
     background-color: transparent !important;
+    color: white !important;
+    background-image: none !important;
 }
 
-.page-data blockquote::before {
+.page-data blockquote::before, .page-data .blockquote::before {
     position: absolute;
     content: "";
     top: auto;
@@ -31,7 +33,7 @@
     z-index: 100;
     background-color: rgb(70, 70, 70);
 }
-.page-data blockquote {
+.page-data blockquote, .page-data .blockquote {
     background-color: #7979792e !important;
     border: solid rgb(70, 70, 70) 1px;
     border-width: thin;
@@ -104,6 +106,7 @@
 .scp-image-block.block-left {
     float: left;
     clear: left;
+    margin: 0 2em 1em 0;
 }
 
 .image-container .image {
@@ -117,6 +120,12 @@
     text-decoration: none;
     cursor: pointer;
     border: none;
+}
+.scp-image-block a {
+    background-color: transparent !important;
+}
+.scp-image-block a:hover {
+    background-color: transparent !important;
 }
 .content-panel p a:hover, .page-data blockquote p a:hover, .page-data a:hover {
     background-color: rgb(167, 167, 167);
@@ -140,7 +149,630 @@
 .wiki-content-table {
     border: none;
 }
+.wiki-content-table th {
+    background-color: #5454548c;
+}
 table, td, th, tr {
     border: solid white 1px;
     padding: 10px;
+}
+
+.page-data #u-adult-warning {
+    width: fit-content;
+    margin: 0 auto 20px;
+    padding: .5rem 1rem;
+    border: solid white 3px;
+    background-color: #545454;
+    text-align: center;
+    font-weight: bold;
+}
+
+.page-data #u-adult-warning #u-adult-header {
+    font-size: 300%;
+    color: red;
+}
+
+.meta-title {
+    display: none;
+}
+
+.anon-bar-container {
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+.anon-bar-container * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.anom-bar-container, .anom-bar-container * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.anom-bar {
+    display: grid;
+    grid-template-areas: "top-box" "bottom-box";
+    width: 100%;
+}
+
+.anom-bar > .top-box {
+    display: grid;
+    grid-area: top-box;
+    grid-template-areas: "top-left-box top-center-box top-right-box";
+    width: 100%;
+    grid-template-columns: auto 1fr calc(5vw + 5rem);
+    grid-template-rows: 1fr;
+    font-weight: 600;
+    text-transform: uppercase;
+    justify-items: stretch;
+    padding-bottom: 1.5rem;
+}
+
+.top-box .top-left-box {
+    grid-area: top-left-box;
+}
+
+.top-left-box, .top-right-box {
+    clip-path: polygon( 0% -50%, 150% -50%, 150% 100%, 0% 100%);
+}
+
+.top-left-box > .item {
+    font-size: calc(12px + (20 - 12) * ( (100vw - 300px) / ( 1920 - 960) ));
+}
+
+.top-left-box > .number {
+    font-size: calc(25px + (50 - 25) * ( (100vw - 300px) / ( 1920 - 300) ));
+}
+
+.top-box .top-center-box {
+    display: flex;
+    grid-area: top-center-box;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0 1rem;
+}
+
+.top-center-box > div {
+    background-color: rgb(0,0,0);
+    height: 0.5rem;
+    width: 100%;
+    margin: 0.125rem;
+    display: none;
+}
+
+.anom-bar-container.clear-1 .top-center-box > .bar-one, .anom-bar-container.clear-2 .top-center-box > .bar-one, .anom-bar-container.clear-3 .top-center-box > .bar-one, .anom-bar-container.clear-4 .top-center-box > .bar-one, .anom-bar-container.clear-5 .top-center-box > .bar-one, .anom-bar-container.clear-6 .top-center-box > .bar-one {
+    display: block;
+}
+.anom-bar-container.clear-2 .top-center-box > .bar-two, .anom-bar-container.clear-3 .top-center-box > .bar-two, .anom-bar-container.clear-4 .top-center-box > .bar-two, .anom-bar-container.clear-5 .top-center-box > .bar-two, .anom-bar-container.clear-6 .top-center-box > .bar-two {
+    display: block;
+}
+.anom-bar-container.clear-3 .top-center-box > .bar-three, .anom-bar-container.clear-4 .top-center-box > .bar-three, .anom-bar-container.clear-5 .top-center-box > .bar-three, .anom-bar-container.clear-6 .top-center-box > .bar-three {
+    display: block;
+}
+.anom-bar-container.clear-4 .top-center-box > .bar-four, .anom-bar-container.clear-5 .top-center-box > .bar-four, .anom-bar-container.clear-6 .top-center-box > .bar-four {
+    display: block;
+}
+.anom-bar-container.clear-5 .top-center-box > .bar-five, .anom-bar-container.clear-6 .top-center-box > .bar-five {
+    display: block;
+}
+
+.anom-bar-container.clear-1 .top-center-box > div {
+    background-color: rgb(0,159,107);
+}
+.anom-bar-container.clear-2 .top-center-box > div {
+    background-color: rgb(0,135,189);
+}
+.anom-bar-container.clear-3 .top-center-box > div {
+    background-color: rgb(255,211,0);
+}
+.anom-bar-container.clear-5 .top-center-box > div {
+    background-color: rgb(196,2,51);
+}
+
+.top-box .top-right-box {
+    display: grid;
+    grid-area: top-right-box;
+    grid-template-areas: "level" "clearance";
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.top-right-box > .level {
+    display: flex;
+    align-items: flex-end;
+    grid-area: level;
+    font-size: 2.5rem;
+    line-height: 0.5;
+}
+
+.top-right-box > .clearance::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.anom-bar-container.clear-1 .top-right-box > .clearance::before {
+    content: "Unrestricted";
+}
+.anom-bar-container.clear-2 .top-right-box > .clearance::before {
+    content: "Restricted";
+}
+.anom-bar-container.clear-3 .top-right-box > .clearance::before {
+    content: "Confidential";
+}
+.top-right-box .clearance {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    grid-area: clearance;
+    font-size: calc(12px + (15 - 12) * ( (100vw - 400px) / ( 1920 - 960) ));
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+.anom-bar > .bottom-box::before {
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 0.5rem;
+    background-color: rgb(255, 255, 255);
+    transform: translateY(-0.74rem);
+}
+.bottom-box {
+    display: grid;
+    grid-area: bottom-box;
+    grid-template-areas: "text-part diamond-part" "text-part diamond-part";
+    grid-template-columns: 1fr 6rem;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 0.5rem;
+    width: 100%;
+    height: 6rem;
+    font-weight: 600;
+    margin-top: -0.5rem;
+    padding-top: 0.25rem;
+}
+
+.bottom-box .text-part {
+    display: grid;
+    height: 6rem;
+    grid-area: text-part;
+    grid-template-areas: "main-class disrupt-class" "main-class risk-class";
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 3fr 2fr;
+    grid-gap: 0.25rem;
+    text-transform: uppercase;
+    justify-content: stretch;
+    align-items: stretch;
+}
+
+.anom-bar-container.safe .text-part .main-class, .anom-bar-container.dark .text-part .disrupt-class, .anom-bar-container.notice .text-part .risk-class {
+    background-color: rgba(0,159,107,0.15);
+    border-left: 0.5rem solid rgba(0,159,107,1);
+}
+.anom-bar-container.euclid .text-part .main-class, .anom-bar-container.keneq .text-part .disrupt-class, .anom-bar-container.warning .text-part .risk-class {
+    border-left: 0.5rem solid rgba(255,211,0,1);
+    background-color: rgba(255,211,0,0.15);
+}
+.anom-bar-container:not(.esoteric) .text-part > .main-class {
+    padding-right: 3.5rem;
+}
+
+.anom-bar-container.safe .text-part > .main-class::before {
+    background-color: rgb(0,159,107);
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/safe-icon.svg);
+}
+.anom-bar-container.euclid .text-part > .main-class::before {
+    background-color: rgb(255,211,0);
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/euclid-icon.svg);
+}
+.text-part > .main-class::before {
+    content: "";
+    position: absolute;
+    top: calc(50% - 2.25rem);
+    right: 0.5rem;
+    width: 3.53125rem;
+    height: 3.53125rem;
+    border-radius: 50%;
+    border: 0.25rem solid rgb(12, 12, 12);
+    background-color: rgb(252, 252, 252);
+    background-size: contain;
+    background-position: center center;
+}
+.text-part .main-class {
+    border-width: 1em !important;
+    position: relative;
+    grid-area: main-class;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0.25rem 0 0 0 rgb(0 0 0 / 0%);
+}
+.text-part  * {
+    clip-path: polygon( 0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+.text-part div {
+    padding: 0 0.125rem;
+    margin: 0 0 0 0.25rem;
+    position: relative;
+}
+
+.text-part > .main-class > div {
+    width: 100%;
+    display: flex;
+}
+
+.text-part .contain-class, .text-part .second-class, .text-part .disrupt-class, .text-part .risk-class {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    line-height: 1;
+}
+
+.text-part .contain-class > div, .text-part .second-class > div, .text-part .disrupt-class > div, .text-part .risk-class > div {
+    width: 100%;
+}
+
+.text-part > div .class-category {
+    position: relative;
+    font-weight: 500;
+    left: 0;
+}
+
+.anom-bar-container:not(.esoteric) .text-part > .main-class > .contain-class > .class-text {
+    font-size: calc(10px + (18 - 10) * ( (100vw - 400px) / ( 800 - 400) ));
+}
+
+.anom-bar-container:not(.esoteric) .text-part > .main-class > .second-class {
+    display: none;
+}
+
+.text-part > .disrupt-class, .text-part > .risk-class {
+    overflow: hidden;
+}
+.text-part > .disrupt-class {
+    grid-area: disrupt-class;
+}
+
+.anom-bar-container.keneq .text-part .disrupt-class::before, .anom-bar-container.warning .text-part .risk-class::before {
+    content: "3";
+}
+
+.anom-bar-container.dark .text-part .disrupt-class::before, .anom-bar-container.notice .text-part .risk-class::before {
+    content: "1";
+}
+.anom-bar-container.vlam .text-part .disrupt-class::before, .anom-bar-container.caution .text-part .risk-class::before {
+    content: "2";
+}
+
+.text-part .disrupt-class::before, .text-part .risk-class::before {
+    display: flex;
+    justify-content: flex-start;
+    background-color: rgb(12, 12, 12) !important;
+    width: 3rem;
+    height: 3rem;
+    top: calc(50% - 1.5rem);
+    border: 0;
+    right: 1rem;
+    text-align: left;
+    font-size: 1em;
+    padding-left: 0.5rem;
+    color: rgb(252, 252, 252);
+}
+.text-part .disrupt-class::after, .text-part .risk-class::after, .text-part .disrupt-class::before, .text-part .risk-class::before {
+    content: "";
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 0.25rem solid rgb(12, 12, 12);
+    width: 2.5rem;
+    height: 2.5rem;
+    top: calc(50% - 1.5rem);
+    font-size: 2em;
+    background-color: rgb(252, 252, 252);
+    background-size: contain;
+    background-position: center center;
+}
+
+.anom-bar-container.dark .text-part .disrupt-class::after {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/dark-icon.svg);
+}
+
+.anom-bar-container.dark .text-part .disrupt-class::after, .anom-bar-container.notice .text-part .risk-class::after {
+    background-color: rgb(0,159,107);
+}
+
+.text-part .disrupt-class::after, .text-part .risk-class::after {
+    right: 0.15em;
+}
+.text-part .disrupt-class::after, .text-part .risk-class::after, .text-part .disrupt-class::before, .text-part .risk-class::before {
+    content: "";
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 0.25rem solid rgb(12, 12, 12);
+    width: 2.5rem;
+    height: 2.5rem;
+    top: calc(50% - 1.5rem);
+    font-size: 2em;
+    background-color: rgb(252, 252, 252);
+    background-size: contain;
+    background-position: center center;
+}
+
+.anom-bar-container.notice .text-part .risk-class::after {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/notice-icon.svg);
+}
+
+.bottom-box > .diamond-part {
+    width: 100%;
+    padding-top: 100%;
+    display: flex;
+    position: relative;
+    grid-area: diamond-part;
+    padding-left: 1rem;
+    box-shadow: -0.5rem 0 0 0 rgb(255, 255, 255);
+}
+div.diamond-part {
+    clip-path: polygon( -10% 0.37%, 120% 0.37%, 120% 100%, -10% 100%);
+    will-change: box-shadow;
+}
+
+.danger-diamond {
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    top: 2.5%;
+    left: 5%;
+}
+
+.danger-diamond a {
+    color: rgba(0,0,0,0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    background-color: transparent !important;
+}
+
+.danger-diamond br {
+    display: none;
+}
+
+.danger-diamond > .arrows {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgb(12, 12, 12);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.2' baseProfile='tiny' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 160 160' xml:space='preserve'%3E%3Cpath fill='%23010101' d='M136.1,133.3l23.9-23.9V51.2l-24-24l19.1-19.1l4.9,4.9l0-12.9l-12.9,0l4.9,4.9L133,24.2l-24-24H51l-24,24 L8,5.2l4.9-4.9L0,0.2l0,12.9l4.9-4.9L24,27.3l-24,24v58.2l23.9,23.9l-19,19L0,147.3l0,12.9l12.9,0L8,155.3l19-19l23.9,23.9h58.4 l23.9-23.9l19,19l-4.9,4.9l12.9,0l0-12.9l-4.9,4.9L136.1,133.3z M155.7,53v54.6l-22.6,22.6l-50-50L133,30.3L155.7,53z M52.8,4.5 h54.4l22.7,22.7L80,77.2L30.1,27.3L52.8,4.5z M4.3,107.6V53L27,30.3L77,80.2l-50,50L4.3,107.6z M107.4,155.9H52.6L30,133.3l50-50 l50,50L107.4,155.9z'/%3E%3C/svg%3E%0A");
+}
+
+.danger-diamond > .octagon {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    z-index: 0;
+    clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%);
+}
+.danger-diamond > .quadrants {
+    position: absolute;
+    width: 96%;
+    height: 96%;
+    top: 0;
+    left: 0;
+}
+.anom-bar-container.safe .danger-diamond > .quadrants > .top-quad, .anom-bar-container.dark .danger-diamond > .quadrants > .left-quad, .anom-bar-container.notice .danger-diamond > .quadrants > .right-quad {
+    background-color: rgba(0,159,107,0.25);
+}
+.anom-bar-container.euclid .danger-diamond > .quadrants > .top-quad, .anom-bar-container.keneq .danger-diamond > .quadrants > .left-quad, .anom-bar-container.warning .danger-diamond > .quadrants > .right-quad {
+    background-color: rgba(255,211,0,0.25);
+}
+
+.danger-diamond > .quadrants > div {
+    width: 67.5%;
+    padding-bottom: 50%;
+    position: absolute;
+    top: 2.25%;
+    left: 18.5%;
+    background-color: rgba(255, 255, 255, 0);
+    clip-path: polygon(22% 0, 77% 0, 100% 31%, 50% 100%, 0 31%);
+    transform-origin: bottom center;
+}
+.danger-diamond > .quadrants > .right-quad {
+    transform: rotate(90deg);
+}
+.danger-diamond > .quadrants > .left-quad {
+    transform: rotate(270deg);
+}
+.danger-diamond > .quadrants > .bottom-quad {
+    transform: rotate(180deg);
+}
+.danger-diamond > .top-icon {
+    top: 0.25rem;
+    left: 33.5%;
+}
+.danger-diamond > .right-icon {
+    right: 0.25rem;
+    top: 33.5%;
+}
+.danger-diamond > .left-icon {
+    left: 0.25rem;
+    top: 33.5%;
+}
+.anom-bar-container:not(.esoteric) .danger-diamond > .bottom-icon {
+    display: none;
+}
+.danger-diamond > .bottom-icon {
+    bottom: 0.25rem;
+    left: 33.5%;
+}
+.danger-diamond > .top-icon, .danger-diamond > .right-icon, .danger-diamond > .left-icon, .danger-diamond > .bottom-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33%;
+    height: 33%;
+    border-radius: 50%;
+    border: 0.1875rem solid rgb(12, 12, 12);
+    overflow: hidden;
+    z-index: 2;
+}
+.danger-diamond > .top-icon::before, .danger-diamond > .right-icon::before, .danger-diamond > .left-icon::before, .danger-diamond > .bottom-icon::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+}
+.anom-bar-container.safe .danger-diamond > .top-icon::before {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/safe-icon.svg);
+}
+.anom-bar-container.euclid .danger-diamond > .top-icon::before {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/euclid-icon.svg);
+}
+
+.anom-bar-container.notice .danger-diamond > .right-icon::before {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/notice-icon.svg);
+}
+.anom-bar-container.caution .danger-diamond > .right-icon::before {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/caution-icon.svg);
+}
+
+.anom-bar-container.vlam .danger-diamond > .left-icon::before, .anom-bar-container.caution .danger-diamond > .right-icon::before {
+    background-color: rgb(0,135,189);
+}
+.anom-bar-container.euclid .danger-diamond > .top-icon::before, .anom-bar-container.keneq .danger-diamond > .left-icon::before, .anom-bar-container.warning .danger-diamond > .right-icon::before {
+    background-color: rgb(255,211,0);
+}
+.anom-bar-container.dark .danger-diamond > .left-icon::before {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/dark-icon.svg);
+}
+
+.anom-bar-container.vlam .text-part .disrupt-class, .anom-bar-container.caution .text-part .risk-class {
+    border-left: 0.5rem solid rgba(0,135,189,1);
+    background-color: rgba(0,135,189,0.15);
+}
+.anom-bar-container.keneq .text-part .disrupt-class::after, .anom-bar-container.warning .text-part .risk-class::after {
+    background-color: rgb(255,211,0);
+}
+.anom-bar-container.vlam .text-part .disrupt-class::after, .anom-bar-container.caution .text-part .risk-class::after {
+    background-color: rgb(0,135,189);
+}
+.anom-bar-container.vlam .danger-diamond > .quadrants > .left-quad, .anom-bar-container.caution .danger-diamond > .quadrants > .right-quad {
+    background-color: rgba(0,135,189,0.25);
+}
+.anom-bar-container.keneq .text-part .disrupt-class::after {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/keneq-icon.svg);
+}
+.anom-bar-container.caution .text-part .risk-class::after {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/caution-icon.svg);
+}
+.anom-bar-container.keneq .danger-diamond > .left-icon::before {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/keneq-icon.svg);
+}
+.anom-bar-container.vlam .text-part .disrupt-class::after {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/vlam-icon.svg);
+}
+.anom-bar-container.warning .text-part .risk-class::after {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/warning-icon.svg);
+}
+.anom-bar-container.warning .danger-diamond > .right-icon::before {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/warning-icon.svg);
+}
+.anom-bar-container.vlam .danger-diamond > .left-icon::before {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/vlam-icon.svg);
+}
+.scale {
+    display: none;
+}
+.anom-bar-container.esoteric .text-part > .main-class {
+    padding-right: 2rem;
+}
+.anom-bar-container.esoteric .text-part .main-class {
+    background-color: rgba(232, 232, 255, 0.15);
+    border-left: 0.75rem solid rgb(255, 255, 255);
+}
+.anom-bar-container.esoteric .text-part > .main-class::before {
+    top: 0.5rem;
+    right: 1.25rem;
+    width: 5rem;
+    border-radius: calc(3.53125rem / 2);
+    background-color: rgb(252, 252, 252);
+    filter: invert(1);
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/esoteric-icon.svg);
+    background-size: 75% 75%;
+    background-repeat: no-repeat;
+    background-position: left -10px center;
+}
+.anom-bar-container.thaumiel .text-part > .main-class::after {
+    background-image: url(http://scp-wiki.wdfiles.com/local--files/component%3Aanomaly-class-bar/thaumiel-icon.svg);
+}
+.anom-bar-container.esoteric .text-part > .main-class::after {
+    content: "";
+    position: absolute;
+    top: 0.5rem;
+    right: 0.25rem;
+    width: 3.53125rem;
+    height: 3.53125rem;
+    border-radius: 50%;
+    border: 0.25rem solid rgb(255, 255, 255);
+    background-color: rgb(199, 199, 199);
+    background-size: contain;
+    background-position: center center;
+}
+.anom-bar-container.esoteric .text-part > .main-class > .second-class > .class-text {
+    font-size: -webkit-calc( 6px + (11 - 6) * ( (100vw - 400px) / ( 800 - 400) ));
+    font-size: -moz-calc( 6px + (11 - 6) * ( (100vw - 400px) / ( 800 - 400) ));
+    font-size: calc( 6px + (11 - 6) * ( (100vw - 400px) / ( 800 - 400) ));
+    position: relative;
+}
+.anom-bar-container.esoteric .danger-diamond > .quadrants > .top-quad {
+    background-color: rgb(255 255 255 / 26%);
+}
+.anom-bar-container.esoteric .danger-diamond > .top-icon::before {
+    background-color: rgb(252, 252, 252);
+    background-color: rgb(var(--swatch-background, 252, 252, 252));
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/esoteric-icon.svg);
+    -webkit-filter: invert(1);
+    filter: invert(1);
+}
+.anom-bar-container.esoteric .danger-diamond > .top-icon::before {
+    background-color: rgb(252, 252, 252);
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/esoteric-icon.svg);
+    filter: invert(1);
+}
+.anom-bar-container.thaumiel .danger-diamond > .bottom-icon::before {
+    background-image: url(http://scp-wiki.wdfiles.com/local--files/component%3Aanomaly-class-bar/thaumiel-icon.svg);
+    background-size: contain;
+}
+.anom-bar-container.esoteric .danger-diamond > .quadrants > .bottom-quad {
+    background-color: rgb(255 255 255 / 26%);
 }

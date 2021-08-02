@@ -1,20 +1,3 @@
-:root {
-    --corner-notch: polygon(
-        0 0,
-        100% 0,
-        100% calc(100% - 1rem + 2px),
-        calc(100% - 1rem + 2px) 100%,
-        0 100%
-      );
-    --corner-notch-with-outline: polygon(
-        -100% -100%,
-        200% 0,
-        100% calc(100% - 1rem + 2px),
-        calc(100% - 1rem + 2px) 100%,
-        0 800%, 0 0, 0 100%
-      );
-}
-
 .page-data div[style] {
     background-color: transparent !important;
     color: white !important;

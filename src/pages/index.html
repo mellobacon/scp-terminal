@@ -8,6 +8,11 @@
         <link rel="stylesheet" href="../components/styles/stylesheet.css">
         <!--stylesheet for scp page-->
         <link rel="stylesheet" href="../components/styles/page-content.css">
+        <!-- Simple trick to make things work so you can use import/exports of typescript, 
+            since tsc compiles it to esModule, but in the future I'll use webpack -->
+        <script>
+            const exports = {};
+        </script>
     </head>
 
     <body>

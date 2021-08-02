@@ -1,6 +1,6 @@
 import { BrowserWindow } from "electron";
-const { ipcMain, app } = require("electron");
-const join = require("path").join;
+import { ipcMain, app } from "electron";
+import { join } from "path";
 
 let mainWindow: BrowserWindow;
 function createWindow() {

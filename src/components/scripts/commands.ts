@@ -1,9 +1,6 @@
 import { ipcRenderer } from "electron";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import cheerio from 'cheerio';
-import { app } from "electron";
-import { readFileSync } from "fs";
-import { join } from "path";
 
 let error = false;
 let helpflag = false;
@@ -72,7 +69,7 @@ const getHelp = (command: string) => {
             // print the usage with options if it has any
             if (cmd.args) {
                 termwindow.append(`${cmd.description}\nUsage:\n ${cmd.usage}\nOptions\n `);
-                let descs: string[] = [...cmd.argsd]; // gotta copy the array because ref types are dumb
+                const descs: string[] = [...cmd.argsd]; // gotta copy the array because ref types are dumb
                 for (const arg of cmd.args) {
                     termwindow.append(`${arg} : `);
                     for (const d of descs) {
@@ -103,7 +100,7 @@ const manual = (args: any[]) => {
 }
 
 const search = async (args: any[]) => {
-    let options = ["-s", "-e", "-k", "-t", "-j"];
+    const options = ["-s", "-e", "-k", "-t", "-j"];
     checkOptions(args, options, 2);
     if (helpflag) {
         getHelp("search");
@@ -303,7 +300,7 @@ const clear = (args: any[]) => {
 }
 
 const test = async (args: any[]) => {
-    let op = ["-t"];
+    const op = ["-t"];
     checkOptions(args, op, 1);
     if (helpflag) {
         getHelp("test");

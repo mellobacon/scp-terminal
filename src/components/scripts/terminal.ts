@@ -159,8 +159,8 @@ const showDatabase = () => {
 const processCommand = async () => {
 
     // Divide the command into the name and its arguments
-    let args = command.split(" ");
-    let typedCommand = commands.find((cmd: { name: string; }) => cmd.name === args[0]);
+    const args = command.split(" ");
+    const typedCommand = commands.find((cmd: { name: string; }) => cmd.name === args[0]);
     args.shift();
 
     if (inMenu) {
@@ -229,7 +229,7 @@ const startTerminal = () => {
 
 // Allows typing
 document.addEventListener("keypress", async (e) => {
-    let key = e.which;
+    const key = e.which;
     switch (key) {
         case 13: // enter
             termwindow.append("\n");

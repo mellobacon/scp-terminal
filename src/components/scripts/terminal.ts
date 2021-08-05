@@ -1,77 +1,11 @@
-const $ = require('../components/util/jquery.js');
+import $ from "jquery";
 const commands = require("../components/scripts/commands.js").cmdlist;
-const path = require("path");
+const { promptBox, pathBox, powerBox, span } = require("../components/scripts/util.js");
+let { inMenu, inDatabase, inManual, showDatabase, showMainMenu, showUserManual } = require("../components/scripts/commands/commandUtils.js");
+
 
 const termwindow = $("#window");
 const termwindow_ = document.querySelector("#window")!; // for scrolling to work
-const page = $(".page-data");
-/**
- * Timeout but better
- * @param ms time in milliseconds
- */
-const sleep = (ms: any) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-/**
- * Makes a styled prompt box
- * @param message the string to go inside the span
- * @returns a span with the class 'prompt-box' with a string inside
- */
-const promptBox = (message: string) => {
-    return "<span class=\"prompt-box\">" + message + "</span>";
-}
-
-/**
- * Makes a styled path box
- * @param message the string to go inside the span
- * @returns a span with the class 'path-box' with a string inside
- */
-const pathBox = (message: string) => {
-    return "<span class=\"path-box\">" + message + "</span>";
-}
-
-/**
- * Makes a power box. Not styled but good for typing after
- * @param prompt the prompt box
- * @param path the path box
- * @returns a span with the class 'power-box'
- */
-const powerBox = (prompt: string, path: string) => {
-    return "<span class=\"power-box\">" + prompt + path + "</span>";
-}
-
-/**
- * Makes a box for page data; Ideally for displaying scp data.
- * @param content The content to be in the page data box
- * @returns 
- */
-const pageData = (...content: any) => {
-    return "<div class=\"page-data\">" + content + "</div>";
-}
-
-const neofetch = (content: any[]) => {
-    for (const item of content) {
-        termwindow.append("<div class=\"neofetch\">" + item + "</div>");
-    }
-}
-
-const h3 = (string: string) => {
-    return `<h3 class="title3"> ${string} </h3>`;
-}
-const h5 = (string: string) => {
-    return `<h5 class="title5"> ${string} </h5>`;
-}
-
-/**
- * Makes a span element with a custom class. Good for styling
- * @param classname the name of the class
- * @param message the string to go inside span
- * @returns a span with the set class name
- */
-const span = (classname: string, message: string) => {
-    return "<span class=\"" + classname + "\">" + message + "</span>";
-}
 
 /**
  * Enables smooth scrolling down the window
@@ -128,7 +62,7 @@ const setLogin = () => {
     termwindow.append(span("status-success", "Clearance granted. ") + "Welcome authorized personnel.\n\n");
 }
 
-let inMenu = false;
+/*
 const showMainMenu = () => {
     inMenu = true;
     inManual = false;
@@ -137,17 +71,14 @@ const showMainMenu = () => {
     termwindow.append("1. User Manual\n2. Knowledge Base\n");
 }
 
-let inManual = false;
 const showUserManual = () => {
     inManual = true;
     inMenu = false;
     inDatabase = false;
     termwindow.append("Welcome to the User Manual. If you have any doubts about The Foundation you can resolve them here.\nEnter a number to choose a topic.\n");
     termwindow.append("1. Object Classes\n2. Personnel\n3. Facilities\n4. Task Forces\n5. Exit to previous menu\n")
-    //termwindow.append(span("status-fail", "User Manual not found. Type '2' to exit.\n"));
 }
 
-let inDatabase = false;
 const showDatabase = () => {
     inMenu = false;
     inManual = false;
@@ -155,6 +86,7 @@ const showDatabase = () => {
     termwindow.append("Welcome to the SCP Foundation Knowledge Base. Enter a number to choose an option. To exit, type 'manual'.\n");
     termwindow.append("1. Groups of Interest\n2. Anomalous Items\n3. Extranormal Events\n4. Unexplained Locations\n5. SCP Database\n6. Back to previous menu.\n");
 }
+*/
 
 const processCommand = async () => {
 

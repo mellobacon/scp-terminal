@@ -32,7 +32,7 @@ const access = async (args: any[]) => {
                         footer.remove();
                         license.remove();
                         mobileexit.remove();
-                        iframe.remove();
+                        //iframe.remove();
                         info.remove();
                         termwindow.append(pageData(x.html()?.trim()));
                     }

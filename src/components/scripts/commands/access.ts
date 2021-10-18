@@ -1,7 +1,7 @@
 import axios from "axios";
 import cheerio from 'cheerio';
 import $ from "jquery";
-import { pageData } from "../util";
+import { pageData, getRandomInt, span } from "../util";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
 
 const termwindow = $("#window");
@@ -15,7 +15,9 @@ const access = async (args: any[]) => {
     if (!error) {
         if (!args[0].startsWith("scp-")) {
             if (args[0] === "random") {
-                const url = `http://scp-wiki.wikidot.com/random:random-scp`;
+                const num = getRandomInt(0, 6999);
+                const scpnum = new Intl.NumberFormat('en-US', { minimumIntegerDigits: 3 }).format(num).toString().replace(",", "");
+                const url = `http://scp-wiki.wikidot.com/scp-${scpnum}`;
                 const a = axios.create();
                 await a.get(url).then(
                     (html: { data: any; }) => {
@@ -36,10 +38,14 @@ const access = async (args: any[]) => {
                         info.remove();
                         termwindow.append(pageData(x.html()?.trim()));
                     }
-                ).catch(console.error);
+                ).catch(() => {
+                        termwindow.append(span("status-fail", `scp-${scpnum} not available.\n`));
+                        console.error;
+                    }
+                );
                 return;
             }
-            termwindow.append("no\n"); 
+            termwindow.append(span("status-fail", "Error: Invalid format. Type 'access -help' for help."));
             return;
         }
         const url = `http://scp-wiki.wikidot.com/${args[0]}`;
@@ -63,7 +69,10 @@ const access = async (args: any[]) => {
                 info.remove();
                 termwindow.append(pageData(x.html()?.trim()));
             }
-        ).catch(console.error);
+        ).catch(() => {
+            termwindow.append(span("status-fail", `${args[0]} not available.\n`));
+            console.error;
+        });
     }
 }
 

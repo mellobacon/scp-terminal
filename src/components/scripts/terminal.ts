@@ -62,32 +62,6 @@ const setLogin = () => {
     termwindow.append(span("status-success", "Clearance granted. ") + "Welcome authorized personnel.\n\n");
 }
 
-/*
-const showMainMenu = () => {
-    inMenu = true;
-    inManual = false;
-    inDatabase = false;
-    termwindow.append("Enter a number to choose a topic. To exit, type 'manual'.\n");
-    termwindow.append("1. User Manual\n2. Knowledge Base\n");
-}
-
-const showUserManual = () => {
-    inManual = true;
-    inMenu = false;
-    inDatabase = false;
-    termwindow.append("Welcome to the User Manual. If you have any doubts about The Foundation you can resolve them here.\nEnter a number to choose a topic.\n");
-    termwindow.append("1. Object Classes\n2. Personnel\n3. Facilities\n4. Task Forces\n5. Exit to previous menu\n")
-}
-
-const showDatabase = () => {
-    inMenu = false;
-    inManual = false;
-    inDatabase = true;
-    termwindow.append("Welcome to the SCP Foundation Knowledge Base. Enter a number to choose an option. To exit, type 'manual'.\n");
-    termwindow.append("1. Groups of Interest\n2. Anomalous Items\n3. Extranormal Events\n4. Unexplained Locations\n5. SCP Database\n6. Back to previous menu.\n");
-}
-*/
-
 const processCommand = async () => {
 
     // Divide the command into the name and its arguments
@@ -95,6 +69,7 @@ const processCommand = async () => {
     const typedCommand = commands.find((cmd: { name: string; }) => cmd.name === args[0]);
     args.shift();
 
+    /*
     if (inMenu) {
         if (command === "1") {
             // go to user manual
@@ -122,6 +97,7 @@ const processCommand = async () => {
             showMainMenu();
         }
     }
+    */
 
     // Execute the command or return error message. Numbers for menu options do not get processed here.
     if (isNaN(parseInt(command))) {

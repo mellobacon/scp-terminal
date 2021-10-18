@@ -60,6 +60,12 @@ const span = (classname: string, message: string) => {
     return "<span class=\"" + classname + "\">" + message + "</span>";
 }
 
+const getRandomInt = (min:number, max:number) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
 export {
     promptBox,
     pathBox,
@@ -67,5 +73,6 @@ export {
     pageData,
     h3,
     h5,
-    span
+    span,
+    getRandomInt
 }

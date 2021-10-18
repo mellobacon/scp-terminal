@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "dist/main.js",
   "scripts": {
-    "start": "tsc && copyfiles -f src/pages/index.html dist/pages && electron ."
+    "start": "tsc && copyfiles -f src/pages/index.html dist/pages && copyfiles -f src/components/styles dist/components/styles && electron ."
   },
   "files": [
     "dist/**/**"

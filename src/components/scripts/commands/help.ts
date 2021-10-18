@@ -13,6 +13,7 @@ const help = (args: any[]) => {
     }
     if (!error) {
         termwindow.append(h3("Commands"));
+        termwindow.append("For help on a specific command, type [command] -help.\n");
         termwindow.append("<hr>");
         commands_.forEach((cmd: { description: any; usage: any; }) => {
             termwindow.append(`\n${cmd.description}\nUsage:\n ${cmd.usage}\n\n`);

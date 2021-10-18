@@ -15,8 +15,8 @@ document.getElementById('file')!.addEventListener('click', () => {
 
 let win = document.getElementById("window");
 ipcRenderer.on("unfocused", () => {
-    win?.classList.toggle("pause-cursor-unfocused");
+    win?.classList.add("pause-cursor-unfocused");
 });
 ipcRenderer.on("focused", () => {
-    win?.classList.toggle("pause-cursor-unfocused");
+    win?.classList.remove("pause-cursor-unfocused");
 });

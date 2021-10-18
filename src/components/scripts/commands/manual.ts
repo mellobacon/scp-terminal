@@ -1,7 +1,7 @@
 import $ from "jquery";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
 import { showMainMenu } from "./commandUtils";
-import { span } from "../util";
+import { span, pageData } from "../util";
 
 const termwindow = $("#window");
 
@@ -19,7 +19,9 @@ const manual = (args: any[]) => {
     }
     if (!error) {
         //showMainMenu();
-        termwindow.append(span("status-fail", "Manual not available at this time.\n"));
+        //termwindow.append(span("status-fail", "Manual not available at this time.\n"));
+        termwindow.append(pageData("Welcome to the scp terminal. This is where you can access scps through the command line. Type 'access scp-xxxx' to access an scp. Type 'help' for the list of commands. Type 'search' to get a list of scps in the database*.\n"));
+        termwindow.append("*Not all scps will be available. This is a limitation of the scp website.\n");
     }
 }
 

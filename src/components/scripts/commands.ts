@@ -9,27 +9,6 @@ import { clear } from "./commands/clear";
 
 const termwindow = $("#window");
 
-const echo = async (args: any[]) => {
-    checkOptions(args, null, 2);
-    if (helpflag) {
-        getHelp("echo");
-        return;
-    }
-    if (!error) {
-        termwindow.append(`${args}\n`);
-    }
-}
-const security = (args: any[]) => {
-    checkOptions(args, null, 1);
-    if (helpflag) {
-        getHelp("security");
-        return;
-    }
-    if (!error) {
-        termwindow.append("security level not available\n");
-    }
-}
-
 const test = async (args: any[]) => {
     const op = ["-t"];
     checkOptions(args, op, 1);
@@ -38,7 +17,9 @@ const test = async (args: any[]) => {
         return;
     }
     if (!error) {
-        termwindow.append("test");
+        const r = 1
+        const n = new Intl.NumberFormat('en-US', { minimumIntegerDigits: 3 }).format(r).toString().replace(",", "");
+        termwindow.append(n + "\n");
     }
 }
 
@@ -64,12 +45,6 @@ const commands_ = [
         "function": help
     },
     {
-        "name": "echo",
-        "description": "echo - A test command",
-        "usage": "echo [message]",
-        "function": echo
-    },
-    {
         "name": "manual",
         "description": "manual - Displays the help menu",
         "usage": "manual",
@@ -82,12 +57,6 @@ const commands_ = [
         "args": ["-rnd"],
         "argsd": ["Displays a random scp file"],
         "function": access
-    },
-    {
-        "name": "security",
-        "description": "security - Displays security level of a scp file",
-        "usage": "security [scp] [options]",
-        "function": security
     },
     {
         "name": "test",

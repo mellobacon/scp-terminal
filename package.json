@@ -10,7 +10,7 @@
   ],
   "dependencies": {
     "copyfiles": "^2.4.1",
-    "electron": "^12.0.12",
+    "electron": "^12.1.0",
     "jquery": "^3.6.0",
     "typescript": "^4.2.4"
   },

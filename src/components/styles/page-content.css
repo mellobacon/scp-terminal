@@ -28,6 +28,8 @@
         calc(100% - 1.9rem + 2px) 100%,
         0 100%
       );
+      clear: both;
+      margin-bottom: 10px;
 }
 
 .page-data ul {
@@ -1028,5 +1030,8 @@ div.obj > div {
     display: none;
 }
 .creditRate {
+    display: none;
+}
+.authorlink-wrapper {
     display: none;
 }

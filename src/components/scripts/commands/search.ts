@@ -1,10 +1,12 @@
 import axios from "axios";
 import cheerio from 'cheerio';
-import $ from "jquery";
-import { pageData, h3 } from "../util";
+import $, { ready } from "jquery";
+import { pageData, h3, scroll_ } from "../util";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
+import { access } from "./access";
 
 const termwindow = $("#window");
+let clicked = false;
 
 const search = async (args: any[]) => {
     const options = ["-s", "-e", "-k", "-t", "-j"];
@@ -14,9 +16,9 @@ const search = async (args: any[]) => {
         return;
     }
     if (!error) {
+        const a = axios.create();
         if (args[0] === "-s") {
             const url = `http://scp-wiki.wikidot.com/system:page-tags/tag/safe`;
-            const a = axios.create();
             await a.get(url).then(
                 (html: { data: any }) => {
                     const data = html.data;
@@ -34,7 +36,6 @@ const search = async (args: any[]) => {
         }
         else if (args[0] === "-e") {
             const url = `http://scp-wiki.wikidot.com/system:page-tags/tag/euclid`;
-            const a = axios.create();
             await a.get(url).then(
                 (html: { data: any }) => {
                     const data = html.data;
@@ -48,7 +49,6 @@ const search = async (args: any[]) => {
         }
         else if (args[0] === "-k") {
             const url = `http://scp-wiki.wikidot.com/system:page-tags/tag/keter`;
-            const a = axios.create();
             await a.get(url).then(
                 (html: { data: any }) => {
                     const data = html.data;
@@ -62,7 +62,6 @@ const search = async (args: any[]) => {
         }
         else if (args[0] === "-t") {
             const url = `http://scp-wiki.wikidot.com/system:page-tags/tag/thaumiel`;
-            const a = axios.create();
             await a.get(url).then(
                 (html: { data: any }) => {
                     const data = html.data;
@@ -76,11 +75,12 @@ const search = async (args: any[]) => {
         }
         else if (args[0] === "-j") {
             const url = `http://scp-wiki.wikidot.com/joke-scps/noredirect/true`;
-            const a = axios.create();
             await a.get(url).then(
                 (html: { data: any }) => {
                     const data = html.data;
                     const content = cheerio.load(data);
+                    content("a").removeAttr("href");
+
                     const x = content(".content-panel");
                     termwindow.append(h3("Joke SCPs"));
                     termwindow.append(`<hr>`);
@@ -91,7 +91,18 @@ const search = async (args: any[]) => {
         else {
             termwindow.append("Full list of SCPs not available\n");
         }
+        handleClick();
+        return;
     }
+}
+
+const handleClick = () => {
+    $("a").each((i, l)=> {
+        l.addEventListener("click", (e)=> {
+            e.preventDefault();
+            access([l.getAttribute("href")?.replace(/^\//gm, "")]);
+        })
+    })
 }
 
 export {

@@ -1,21 +1,11 @@
 import $ from "jquery";
 const commands = require("../components/scripts/commands.js").cmdlist;
-const { promptBox, pathBox, powerBox, span } = require("../components/scripts/util.js");
+const { promptBox, pathBox, powerBox, span, scroll_ } = require("../components/scripts/util.js");
 let { inMenu, inDatabase, inManual, showDatabase, showMainMenu, showUserManual } = require("../components/scripts/commands/commandUtils.js");
 
 
 const termwindow = $("#window");
 const termwindow_ = document.querySelector("#window")!; // for scrolling to work
-
-/**
- * Enables smooth scrolling down the window
- */
-const scroll_ = () => {
-    termwindow_.scrollBy({
-        top: termwindow_.scrollHeight,
-        behavior: "smooth"
-    })
-}
 
 let command = "";
 /**
@@ -63,41 +53,10 @@ const setLogin = () => {
 }
 
 const processCommand = async () => {
-
     // Divide the command into the name and its arguments
     const args = command.split(" ");
     const typedCommand = commands.find((cmd: { name: string; }) => cmd.name === args[0]);
     args.shift();
-
-    /*
-    if (inMenu) {
-        if (command === "1") {
-            // go to user manual
-            showUserManual();
-        }
-        else if (command === "2") {
-            // go to database
-            showDatabase();
-        }
-    }
-    else if (inManual) {
-        if (command === "1" || command === "2" || command === "3" || command === "4") {
-            termwindow.append(span("status-fail", "Error.\n"));
-        }
-        else if (command === "5") {
-            // go to menu
-            showMainMenu();
-        }
-    }
-    else if (inDatabase) {
-        if (command === "1" || command === "2" || command === "3" || command === "4" || command === "5") {
-            termwindow.append(span("status-fail", "Error. Cannot access database at this time.\n"));
-        }
-        else if (command === "6") {
-            showMainMenu();
-        }
-    }
-    */
 
     // Execute the command or return error message. Numbers for menu options do not get processed here.
     if (isNaN(parseInt(command))) {

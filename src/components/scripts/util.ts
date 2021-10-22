@@ -1,3 +1,5 @@
+const termwindow_ = document.querySelector("#window")!;
+
 /**
  * Timeout but better
  * @param ms time in milliseconds
@@ -50,6 +52,10 @@ const h5 = (string: string) => {
     return `<h5 class="title5"> ${string} </h5>`;
 }
 
+const listItem = (string: string) => {
+    return `<li class="scp-h-item"> ${string} </li>`;
+}
+
 /**
  * Makes a span element with a custom class. Good for styling
  * @param classname the name of the class
@@ -66,6 +72,16 @@ const getRandomInt = (min:number, max:number) => {
     return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }
 
+/**
+ * Enables smooth scrolling down the window
+ */
+ const scroll_ = () => {
+    termwindow_.scrollBy({
+        top: termwindow_.scrollHeight,
+        behavior: "smooth"
+    })
+}
+
 export {
     promptBox,
     pathBox,
@@ -74,5 +90,7 @@ export {
     h3,
     h5,
     span,
-    getRandomInt
+    getRandomInt,
+    scroll_,
+    listItem
 }

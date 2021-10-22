@@ -111,7 +111,7 @@ html, body {
     background-color: #9b9b9b;
 }
 
-#personnel-text {
+#toolbar {
     display: flex;
     padding-top: 10px;
     height: 35px;
@@ -120,12 +120,75 @@ html, body {
     justify-content: flex-end;
 }
 
+#sidebarbutton {
+    position: absolute;
+    left: 0;
+    top: 70px;
+    width: 15px;
+    height: 30px;
+    background-color: white;
+    border: solid 2px #8c8c8c;
+    color: black;
+    z-index: 100;
+    transform: translateX(0);
+    transition: transform 250ms ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#sidebarbutton:hover {
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    display: none;
+}
+input[type="checkbox"]:checked ~ #sidetoolbar > #sidebarbutton {
+    transform: translateX(250px);
+}
+input[type="checkbox"]:checked ~ #sidebar {
+    transform: translateX(0);
+}
+
+#sidebar {
+    background-color: black;
+    border: 1px solid #d0d0d0;
+    position: fixed;
+    left: 0;
+    width: 250px;
+    margin-top: 70px;
+    transform: translateX(-250px);
+    transition: transform 250ms ease-in-out;
+    height: 40%;
+    z-index: 100;
+    padding: 10px;
+}
+
+#personnel-text {
+    display: flex;
+}
+
 .personnel-title, .personnel-site {
     padding: 5px 10px 5px 10px;
     font-size: 13px;
 }
 .personnel-title {
     border-right: solid white 1px;
+}
+
+/*
+* SCP HISTORY TAB
+*/
+
+#scp-list ul {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style: decimal;
+}
+.scp-h-item:hover {
+    cursor: pointer;
 }
 
 /*

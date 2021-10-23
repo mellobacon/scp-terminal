@@ -79,8 +79,6 @@ const search = async (args: any[]) => {
                 (html: { data: any }) => {
                     const data = html.data;
                     const content = cheerio.load(data);
-                    content("a").removeAttr("href");
-
                     const x = content(".content-panel");
                     termwindow.append(h3("Joke SCPs"));
                     termwindow.append(`<hr>`);

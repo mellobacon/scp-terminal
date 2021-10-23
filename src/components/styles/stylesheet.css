@@ -164,6 +164,18 @@ input[type="checkbox"]:checked ~ #sidebar {
     height: 40%;
     z-index: 100;
     padding: 10px;
+    overflow-y: auto;
+}
+#sidebar::-webkit-scrollbar {
+    width: 6px;
+	background-color: #F5F5F5;
+}
+#sidebar::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+#sidebar::-webkit-scrollbar-thumb{
+    background-color: #808080;
 }
 
 #personnel-text {
@@ -313,7 +325,7 @@ input[type="checkbox"]:checked ~ #sidebar {
     color: red;
 }
 .status-success {
-    color: green;
+    color: rgb(0, 255, 0);
 }
 .status-warning {
     color: yellow;

@@ -1,6 +1,6 @@
 import $ from "jquery";
 const commands = require("../components/scripts/commands.js").cmdlist;
-const { promptBox, pathBox, powerBox, span, scroll_ } = require("../components/scripts/util.js");
+const { promptBox, pathBox, powerBox, span, scroll_, escapeHTML } = require("../components/scripts/util.js");
 let { inMenu, inDatabase, inManual, showDatabase, showMainMenu, showUserManual } = require("../components/scripts/commands/commandUtils.js");
 
 
@@ -8,12 +8,27 @@ const termwindow = $("#window");
 const termwindow_ = document.querySelector("#window")!; // for scrolling to work
 
 let command = "";
+const commandHistory = [''];
+let historyIndex = 0;
 /**
  * Appends a command to the terminal window
  * @param str the command to append
  */
 const appendCommand = (str: string) => {
-    termwindow.append(str);
+    switch(str){
+        case "<":
+            termwindow.append('&lt;');
+            break;
+        case ">":
+            termwindow.append('&gt;');
+            break;
+        case "&":
+            termwindow.append('&amp;');
+            break;
+        default:
+            termwindow.append(str);
+            break;    
+    }
     command += str;
 }
 
@@ -24,6 +39,12 @@ const appendCommand = (str: string) => {
 const erase = (n: number) => {
     command = command.slice(0, -n);
     termwindow.html(termwindow.html().slice(0, -n));
+}
+
+function clearCommand(){
+    if (command.length > 0){
+        erase(command.length);
+    }
 }
 
 const prompt_ = promptBox(`@bright`);
@@ -77,7 +98,10 @@ const processCommand = async () => {
     }
 
     // Clear the command for next input
+    commandHistory.splice(1, 0, command);
     command = "";
+    historyIndex = 0;
+    commandHistory[0] = "";
     appendPrompt();
 }
 
@@ -122,6 +146,27 @@ document.addEventListener("keydown", (e) => {
         e.preventDefault();
         if (command !== "" && command !== "\n") {
             erase(1);
+        }
+        scroll_();
+    }
+    // Allows moving through command history
+	if (key === 38 || key === 40) {
+        e.preventDefault();
+        // Move up or down the history
+        // Up key
+        if (key === 38) {
+            if(historyIndex < commandHistory.length - 1) historyIndex++;
+        } 
+        // Down key
+        else if (key === 40) {
+            if(historyIndex > 0) historyIndex--;
+        }
+
+        // Get command and append it to the terminal
+        const cmd = (historyIndex >= 0) ? commandHistory[historyIndex] : '';
+        if (cmd != undefined) {
+            clearCommand();
+            appendCommand(cmd);
         }
         scroll_();
     }

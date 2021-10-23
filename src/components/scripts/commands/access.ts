@@ -29,21 +29,20 @@ const access = async (args: any[]) => {
                         const footer = content(".footer-wikiwalk-nav");
                         const license = content(".licensebox");
                         const mobileexit = content(".mobile-exit");
-                        const iframe = content("iframe");
                         const info = content(".info-container");
                         rating.remove();
                         footer.remove();
                         license.remove();
                         mobileexit.remove();
-                        //iframe.remove();
                         info.remove();
+                        content(".collapsible-block-link").removeAttr("href");
                         scphistory.append(listItem(`scp-${scpnum}`));
                         termwindow.append(pageData(x.html()?.trim()));
                     }
                 ).catch(() => {
-                        termwindow.append(span("status-fail", `scp-${scpnum} not available.\n`));
-                        console.error;
-                    }
+                    termwindow.append(span("status-fail", `scp-${scpnum} not available.\n`));
+                    console.error;
+                }
                 );
                 handleClick();
                 return;
@@ -62,14 +61,13 @@ const access = async (args: any[]) => {
                 const footer = content(".footer-wikiwalk-nav");
                 const license = content(".licensebox");
                 const mobileexit = content(".mobile-exit");
-                const iframe = content("iframe");
                 const info = content(".info-container");
                 rating.remove();
                 footer.remove();
                 license.remove();
                 mobileexit.remove();
-                iframe.remove();
                 info.remove();
+                content(".collapsible-block-link").removeAttr("href");
                 termwindow.append(pageData(x.html()?.trim()));
                 scphistory.append(listItem(args[0]));
             }
@@ -81,29 +79,57 @@ const access = async (args: any[]) => {
     }
 }
 
-const handleClick = () => {
-    $("a").each((i, l)=> {
-        l.addEventListener("click", (e)=> {
+const handleClick = async () => {
+    $("a").each((_, l) => {
+        l.addEventListener("click", (e) => {
             e.preventDefault();
-            access([l.getAttribute("href")?.replace(/^\//gm, "")]);
+            if (l.hasAttribute("href")) {
+                let url = `http://scp-wiki.wikidot.com/$${[l.getAttribute("href")?.replace(/^\//gm, "")]}`;
+                let scp = l.getAttribute("href")?.replace(/^\//gm, "")!;
+                getUrl(url, scp);
+            }
         })
     })
 
-    /*
-    let foldedblock = $(".collapsible-block").children()[0];
-    let unfoldedblock = $(".collapsible-block").children()[1]
-    foldedblock.addEventListener("click", (e) => {
-        if (unfoldedblock.style.display === "block") {
-            unfoldedblock.style.display = "none";
-            foldedblock.style.display = "block";
-        }
-        else {
-            foldedblock.style.display = "none";
-            unfoldedblock.style.display = "block";
-        }
-        
+    $(".collapsible-block").each((_, l) => {
+        let f = $(l).children()[0];
+        let p = $(l).children()[1];
+        f.addEventListener("click", () => {
+            f.style.display = "none";
+            p.style.display = "block";
+        })
+        p.addEventListener("click", () => {
+            p.style.display = "none";
+            f.style.display = "block";
+        })
     })
-    */
+}
+
+const getUrl = async (url: string, scp: string) => {
+    const a = axios.create();
+    await a.get(url).then((html: { data: any; }) => {
+        const data = html.data;
+        const content = cheerio.load(data);
+        const x = content("#page-content");
+        const rating = content(".page-rate-widget-box");
+        const footer = content(".footer-wikiwalk-nav");
+        const license = content(".licensebox");
+        const mobileexit = content(".mobile-exit");
+        const info = content(".info-container");
+        rating.remove();
+        footer.remove();
+        license.remove();
+        mobileexit.remove();
+        info.remove();
+        content(".collapsible-block-link").removeAttr("href");
+        termwindow.append(pageData(x.html()?.trim()));
+        scphistory.append(listItem(scp.toUpperCase()));
+        handleClick();
+    }).then(
+        () => {
+            termwindow.append("root@user:~$ ");
+        }
+    )
 }
 
 export {

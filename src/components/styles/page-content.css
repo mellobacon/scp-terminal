@@ -273,7 +273,7 @@ table, td, th, tr {
     display: flex;
     align-items: flex-end;
     grid-area: level;
-    font-size: 2.5rem;
+    font-size: calc(20px + (50 - 25) * ( (100vw - 300px) / ( 1920 - 300) ));
     line-height: 0.5;
 }
 
@@ -533,7 +533,7 @@ div.diamond-part {
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     z-index: 3;
@@ -689,11 +689,17 @@ div.diamond-part {
 .anom-bar-container.warning .text-part .risk-class::after {
     background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/warning-icon.svg);
 }
+.anom-bar-container.ekhi .text-part .disrupt-class::after {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/ekhi-icon.svg);
+}
 .anom-bar-container.warning .danger-diamond > .right-icon::before {
     background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/warning-icon.svg);
 }
 .anom-bar-container.vlam .danger-diamond > .left-icon::before {
     background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/vlam-icon.svg);
+}
+.anom-bar-container.ekhi .danger-diamond > .left-icon::before {
+    background-image: url(https://scp-wiki.wikidot.com/local--files/component:anomaly-class-bar/ekhi-icon.svg);
 }
 .anom-bar-container.esoteric .text-part > .main-class {
     padding-right: 2rem;
@@ -736,6 +742,9 @@ div.diamond-part {
     font-size: calc( 6px + (11 - 6) * ( (100vw - 400px) / ( 800 - 400) ));
     position: relative;
 }
+.anom-bar-container.keter-dark .text-part > .main-class::after {
+    background-image: url(http://kaktuskontainer.wikidot.com/local--files/kaktuskontainerxiv/keter-icon-svg.png);
+}
 .anom-bar-container.esoteric .danger-diamond > .quadrants > .top-quad {
     background-color: rgb(255 255 255 / 26%);
 }
@@ -753,6 +762,10 @@ div.diamond-part {
 }
 .anom-bar-container.thaumiel .danger-diamond > .bottom-icon::before {
     background-image: url(http://scp-wiki.wdfiles.com/local--files/component%3Aanomaly-class-bar/thaumiel-icon.svg);
+    background-size: contain;
+}
+.anom-bar-container.keter-dark .danger-diamond > .bottom-icon::before {
+    background-image: url(http://kaktuskontainer.wikidot.com/local--files/kaktuskontainerxiv/keter-icon-svg.png);
     background-size: contain;
 }
 .anom-bar-container.esoteric .danger-diamond > .quadrants > .bottom-quad {

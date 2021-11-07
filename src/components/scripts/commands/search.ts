@@ -1,12 +1,11 @@
 import axios from "axios";
 import cheerio from 'cheerio';
-import $, { ready } from "jquery";
-import { pageData, h3, scroll_ } from "../util";
+import $ from "jquery";
+import { pageData, h3 } from "../util";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
 import { access } from "./access";
 
 const termwindow = $("#window");
-let clicked = false;
 
 const search = async (args: any[]) => {
     const options = ["-s", "-e", "-k", "-t", "-j"];

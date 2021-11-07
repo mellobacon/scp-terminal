@@ -46,6 +46,17 @@
     padding: 15px;
     margin: 15px;
     white-space: normal;
+    display: none;
+    line-height: 20px;
+}
+
+.loaded {
+    display: block !important;
+}
+
+.error-placeholder {
+    padding: 15px;
+    background-color: #3301018a;
 }
 
 .page-data::after {

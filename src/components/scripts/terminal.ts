@@ -1,8 +1,7 @@
 import $ from "jquery";
 const commands = require("../components/scripts/commands.js").cmdlist;
-const { promptBox, pathBox, powerBox, span, scroll_, escapeHTML } = require("../components/scripts/util.js");
-let { inMenu, inDatabase, inManual, showDatabase, showMainMenu, showUserManual } = require("../components/scripts/commands/commandUtils.js");
-
+const { promptBox, pathBox, powerBox, span, scrollPage, sleep } = require("../components/scripts/util.js");
+let { inMenu, inDatabase, inManual } = require("../components/scripts/commands/commandUtils.js");
 
 const termwindow = $("#window");
 const termwindow_ = document.querySelector("#window")!; // for scrolling to work
@@ -59,7 +58,7 @@ const appendPrompt = () => {
     //termwindow.append(`┌ root@sudo-user\n`)
     //termwindow.append("└ $ ");
     termwindow.append("root@user:~$ ");
-    scroll_();
+    //scrollPage();
 }
 
 /**
@@ -130,29 +129,29 @@ document.addEventListener("keypress", async (e) => {
             else {
                 appendPrompt();
             }
-            scroll_();
+            scrollPage();
             break;
         default:
             e.preventDefault();
             appendCommand(String.fromCharCode(key));
-            scroll_();
+            scrollPage();
     }
 })
 
-// Allows backspacing
 document.addEventListener("keydown", (e) => {
+    // Allows backspacing
     const key = e.which;
     if (key == 8) { // backspace
         e.preventDefault();
         if (command !== "" && command !== "\n") {
             erase(1);
         }
-        scroll_();
+        scrollPage();
     }
     // Allows moving through command history
 	if (key === 38 || key === 40) {
         e.preventDefault();
-        // Move up or down the history
+        
         // Up key
         if (key === 38) {
             if(historyIndex < commandHistory.length - 1) historyIndex++;
@@ -168,7 +167,7 @@ document.addEventListener("keydown", (e) => {
             clearCommand();
             appendCommand(cmd);
         }
-        scroll_();
+        scrollPage();
     }
 })
 

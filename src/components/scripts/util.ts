@@ -75,9 +75,10 @@ const getRandomInt = (min:number, max:number) => {
 /**
  * Enables smooth scrolling down the window
  */
- const scroll_ = () => {
+ const scrollPage = () => {
     termwindow_.scrollBy({
-        top: termwindow_.scrollHeight,
+        //top: termwindow_.scrollHeight,
+        top: document.querySelector(".page-data")?.scrollHeight,
         behavior: "smooth"
     })
 }
@@ -91,6 +92,7 @@ export {
     h5,
     span,
     getRandomInt,
-    scroll_,
-    listItem
+    scrollPage,
+    listItem,
+    sleep
 }

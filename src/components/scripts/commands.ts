@@ -17,9 +17,7 @@ const test = async (args: any[]) => {
         return;
     }
     if (!error) {
-        const r = 1
-        const n = new Intl.NumberFormat('en-US', { minimumIntegerDigits: 3 }).format(r).toString().replace(",", "");
-        termwindow.append(n + "\n");
+        // e
     }
 }
 

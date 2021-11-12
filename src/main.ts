@@ -40,7 +40,6 @@ ipcMain.on("execute", (_, url) => {
         if (!http.test(url)) {
             url = `http://scp-wiki.wikidot.com/${url}`;
         }
-        console.log(url);
         const request = net.request(url);
         let status;
         request.on('response', (response) => {

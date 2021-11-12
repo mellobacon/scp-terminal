@@ -86,8 +86,9 @@ const search = async (args: any[]) => {
             )
         }
         else {
-            termwindow.append("Full list of SCPs not available\n");
+            termwindow.append("Full list of SCPs not available. For help, type 'search -help'.\n");
         }
+        $(".page-data").addClass("loaded");
         handleClick();
         return;
     }

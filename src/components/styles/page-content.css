@@ -30,6 +30,7 @@
       );
       clear: both;
       margin-bottom: 10px;
+      border-left: dashed;
 }
 
 .page-data ul {

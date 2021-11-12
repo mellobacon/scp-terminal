@@ -6,6 +6,7 @@ import { manual } from "./commands/manual";
 import { help } from "./commands/help";
 import { exit } from "./commands/exit";
 import { clear } from "./commands/clear";
+import { clear_history } from "./commands/clear_history";
 
 const termwindow = $("#window");
 
@@ -56,11 +57,19 @@ const commands_ = [
         "argsd": ["Displays a random scp file"],
         "function": access
     },
+    /*
     {
         "name": "test",
         "description": "test - test command",
         "usage": "test [whatever shit your testing idk]",
         "function": test
+    },
+    */
+    {
+        "name": "clear-history",
+        "description": "clear-history - Clears the scp history",
+        "usage": "clear-history",
+        "function": clear_history
     },
     {
         "name": "clear",

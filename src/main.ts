@@ -1,5 +1,5 @@
-import { BrowserWindow } from "electron";
-import { ipcMain, app } from "electron";
+import { BrowserWindow, ipcRenderer } from "electron";
+import { ipcMain, app, net } from "electron";
 import { join } from "path";
 
 let mainWindow: BrowserWindow;
@@ -34,6 +34,22 @@ function createWindow() {
 
 app.on("ready", createWindow);
 
+ipcMain.on("execute", (_, url) => {
+    app.whenReady().then(() => {
+        let http = /(^(https)|(http)):\/\//gm;
+        if (!http.test(url)) {
+            url = `http://scp-wiki.wikidot.com/${url}`;
+        }
+        console.log(url);
+        const request = net.request(url);
+        let status;
+        request.on('response', (response) => {
+            status = `${response.statusCode}`;
+            mainWindow.webContents.send("view", [status, url]);
+          })
+          request.end(); 
+    })
+})
 ipcMain.on("close", () => {
     app.quit();
 })

@@ -13,9 +13,20 @@
   ],
   "build": {
     "appId": "com.scp-terminal",
-    "win": {
-      "target": "nsis"
-    },
+    "win":{
+      "target":[
+          "nsis",
+          "msi"
+      ]
+  },
+  "linux":{
+      "target":[
+          "deb",
+          "rpm",
+          "snap",
+          "AppImage"
+      ]
+  },
     "icon": "dist/icon.ico",
     "files": [
       "dist/**/**",

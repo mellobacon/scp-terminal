@@ -1,6 +1,6 @@
+import $ from "jquery";
 import axios from "axios";
 import cheerio from 'cheerio';
-import $ from "jquery";
 import { pageData, h3 } from "../util";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
 import { access } from "./access";

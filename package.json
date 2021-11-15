@@ -2,22 +2,40 @@
   "name": "scp-terminal",
   "version": "0.0.1",
   "main": "dist/main.js",
+  "description": "an scp terminal made in electron",
+  "author": "mellobacon",
   "scripts": {
-    "start": "tsc && copyfiles -f src/pages/*.html dist/pages && copyfiles -f src/components/styles/*.css dist/components/styles/ && electron ."
+    "start": "tsc && copyfiles -f src/pages/*.html dist/pages && copyfiles -f src/components/styles/*.css dist/components/styles/ && electron .",
+    "dist": "electron-builder"
   },
   "files": [
     "dist/**/**"
   ],
+  "build": {
+    "appId": "com.scp-terminal",
+    "win": {
+      "target": "nsis"
+    },
+    "icon": "dist/icon.ico",
+    "files": [
+      "dist/**/**",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "dist"
+    }
+  },
   "dependencies": {
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10",
     "copyfiles": "^2.4.1",
-    "electron": "^12.1.0",
     "jquery": "^3.6.0",
     "typescript": "^4.2.4"
   },
   "devDependencies": {
     "@types/jquery": "^3.5.6",
-    "axios": "^0.21.2",
-    "cheerio": "^1.0.0-rc.10",
+    "electron": "^15.3.1",
+    "electron-builder": "^22.13.1",
     "ts-loader": "^9.2.2",
     "webpack": "^5.37.1",
     "webpack-cli": "^4.7.0"

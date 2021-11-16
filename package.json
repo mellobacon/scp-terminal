@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "main": "dist/main.js",
   "description": "an scp terminal made in electron",
-  "author": "mellobacon",
+  "author": "mellobacon <>",
   "scripts": {
     "start": "tsc && copyfiles -f src/pages/*.html dist/pages && copyfiles -f src/components/styles/*.css dist/components/styles/ && electron .",
+    "build": "tsc && copyfiles -f src/pages/*.html dist/pages && copyfiles -f src/components/styles/*.css dist/components/styles/ && copyfiles -f src/components/images/*.png dist/components/images && copyfiles -f icon.ico dist/",
     "dist": "electron-builder"
   },
   "files": [
@@ -13,20 +14,20 @@
   ],
   "build": {
     "appId": "com.scp-terminal",
-    "win":{
-      "target":[
-          "nsis",
-          "msi"
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
       ]
-  },
-  "linux":{
-      "target":[
-          "deb",
-          "rpm",
-          "snap",
-          "AppImage"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
       ]
-  },
+    },
     "icon": "dist/icon.ico",
     "files": [
       "dist/**/**",

@@ -34,7 +34,8 @@
       "package.json"
     ],
     "directories": {
-      "buildResources": "dist"
+      "buildResources": "dist",
+      "output": "release"
     }
   },
   "dependencies": {

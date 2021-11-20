@@ -108,12 +108,12 @@ const processCommand = async () => {
  * Renders things to the terminal on startup
  */
 const startTerminal = () => {
-    termwindow.append(`SCiPnet Data Network [version 1.3.0] ${span("status-success", "active")}\n\n`);
+    termwindow.append(`SCiPnet Data Network [version 0.0.1] ${span("status-success", "active")}\n\n`);
     termwindow.append(span("status-red-alert", "WARNING. THE SCP FOUNDATION DATABASE IS CLASSIFIED! ACCESS BY UNAUTHORIZED PERSONNEL IS STRICTLY PROHIBITED! PERPETRATORS WILL BE TRACKED, LOCATED, AND DETAINED!\n\n"));
 
     setLogin();
 
-    termwindow.append("Welcome to SCPnet v 1.3.0. For commands, type 'help'. To exit, type 'exit'. For more info, type 'manual'.\n")
+    termwindow.append("Welcome to SCiPnet v0.0.1. For commands, type 'help'. To exit, type 'exit'. For more info, type 'manual'.\n")
     appendPrompt();
 }
 

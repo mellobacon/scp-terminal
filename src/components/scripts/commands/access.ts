@@ -53,7 +53,7 @@ const handleClick = async () => {
     
                         if (status == 200) {
                             // if the link isnt part of the scp wiki domain its an external link which i will handle later
-                            let wiki = /(^(https)|(http)):\/\/scp-wiki/gm;
+                            let wiki = /(^(https)|(http)):\/\/((scp-wiki)|(www\.scp-wiki))/gm;
                             if (!wiki.test(url)) {
                                 termwindow.append("\nexternal site\n");
                                 getUrl(url, scp, false).then(() => {

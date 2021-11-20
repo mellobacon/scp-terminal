@@ -1,4 +1,12 @@
 # scp-terminal
-I'm lazy and will update this to look better but its basically a terminal for traversing scp articles and such.
 
-For reference on what the scp foundation is, visit https://scp-wiki.wikidot.com/about-the-scp-foundation (click writing guide).
+## About : 
+
+## Usage : 
+
+Currently working commands include : 
+```ps
+access scp-2021
+```
+This would access details on SCP-2021 and display the details on the screen as shown below : 
+

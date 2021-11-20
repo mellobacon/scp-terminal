@@ -5,8 +5,8 @@
   "description": "an scp terminal made in electron",
   "author": "mellobacon <>",
   "scripts": {
-    "build": "tsc && copyfiles -f src/pages/*.html dist/pages && copyfiles -f src/components/styles/*.css dist/components/styles/ && copyfiles -f src/components/images/*.png dist/components/images && copyfiles -f icon.ico dist/",
-    "start": "build && electron .",
+    "build": "tsc && copyfiles -f src/pages/*.html dist/pages && copyfiles -f src/components/styles/*.css dist/components/styles/ && copyfiles -f src/components/images/*.png dist/components/images && copyfiles -f src/icon.png dist/",
+    "start": "yarn build && electron .",
     "dist": "electron-builder"
   },
   "files": [
@@ -28,7 +28,7 @@
         "AppImage"
       ]
     },
-    "icon": "dist/icon.ico",
+    "icon": "dist/icon.png",
     "files": [
       "dist/**/**",
       "package.json"

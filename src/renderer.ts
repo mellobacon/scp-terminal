@@ -20,3 +20,8 @@ ipcRenderer.on("unfocused", () => {
 ipcRenderer.on("focused", () => {
     win?.classList.remove("pause-cursor-unfocused");
 });
+document.onkeydown = (e) => {
+    if ((e.code == "Minus" || e.code == "Equal") && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+    }
+}

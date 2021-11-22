@@ -1,6 +1,6 @@
 import $ from "jquery";
 const commands = require("../components/scripts/commands.js").cmdlist;
-const { promptBox, pathBox, powerBox, span, scrollPage, sleep } = require("../components/scripts/util.js");
+const { promptBox, pathBox, powerBox, span, scrollPage, sleep, previewScroll, scrollToLink } = require("../components/scripts/util.js");
 let { inMenu, inDatabase, inManual } = require("../components/scripts/commands/commandUtils.js");
 
 const termwindow = $("#window");
@@ -94,6 +94,12 @@ const processCommand = async () => {
         }
         else if (typedCommand == null) termwindow.append(span("status-fail", `Command not found: ${command}\n`));
         else await typedCommand.function(args);
+        if (typedCommand.name == "access") {
+            scrollToLink();
+        }
+        else {
+            scrollPage();
+        }
     }
 
     // Clear the command for next input
@@ -128,8 +134,8 @@ document.addEventListener("keypress", async (e) => {
             }
             else {
                 appendPrompt();
+                scrollPage();
             }
-            scrollPage();
             break;
         default:
             e.preventDefault();

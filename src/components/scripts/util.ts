@@ -77,8 +77,17 @@ const getRandomInt = (min:number, max:number) => {
  */
  const scrollPage = () => {
     termwindow_.scrollBy({
-        //top: termwindow_.scrollHeight,
-        top: document.querySelector(".page-data")?.scrollHeight,
+        top: termwindow_.scrollHeight,
+        //top: document.querySelector(".page-data")?.scrollHeight,
+        behavior: "smooth"
+    })
+}
+
+const scrollToLink = () => {
+    const pages = document.getElementsByClassName("page-data");
+    const page = pages[pages.length - 1];
+    termwindow_.scrollTo({
+        top: termwindow_.scrollHeight - page.scrollHeight - 75,
         behavior: "smooth"
     })
 }
@@ -94,5 +103,6 @@ export {
     getRandomInt,
     scrollPage,
     listItem,
-    sleep
+    sleep,
+    scrollToLink
 }

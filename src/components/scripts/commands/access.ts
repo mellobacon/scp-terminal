@@ -1,7 +1,7 @@
 import axios from "axios";
 import cheerio from 'cheerio';
 import $ from "jquery";
-import { pageData, getRandomInt, span, listItem, sleep, scrollPage } from "../util";
+import { pageData, getRandomInt, span, listItem, scrollToLink } from "../util";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
 import { ipcRenderer } from "electron";
 
@@ -15,6 +15,10 @@ const access = async (args: any[]) => {
         return;
     }
     if (!error) {
+        if (!args[0]) {
+            termwindow.append(span("status-fail", "Error: Invalid format. Type 'access -help' for help.\n"));
+            return;
+        }
         termwindow.append("Loading...\n");
         if (!args[0].startsWith("scp-")) {
             if (args[0] === "random") {
@@ -34,8 +38,8 @@ const access = async (args: any[]) => {
         }
         const url = `http://scp-wiki.wikidot.com/${args[0]}`;
         await getUrl(url, `${args[0]}`);
+        termwindow.append("Loading complete\n");
     }
-    termwindow.append("Loading complete\n");
 }
 
 const handleClick = async () => {
@@ -64,6 +68,7 @@ const handleClick = async () => {
                             else {
                                 getUrl(url, scp).then(() => {
                                     termwindow.append("root@user:~$ ");
+                                    scrollToLink();
                                     return;
                                 })
                             }

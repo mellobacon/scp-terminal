@@ -1,6 +1,6 @@
 import $ from "jquery";
 const commands = require("../components/scripts/commands.js").cmdlist;
-const { promptBox, pathBox, powerBox, span, scrollPage, sleep, previewScroll, scrollToLink } = require("../components/scripts/util.js");
+const { promptBox, pathBox, powerBox, span, scrollPage, scrollToLink } = require("../components/scripts/util.js");
 let { inMenu, inDatabase, inManual } = require("../components/scripts/commands/commandUtils.js");
 
 const termwindow = $("#window");

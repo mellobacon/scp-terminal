@@ -78,6 +78,7 @@ const processCommand = async () => {
     const typedCommand = commands.find((cmd: { name: string; }) => cmd.name === args[0]);
     args.shift();
 
+    // TODO: Get rid of the old manual functionality. I havent figured out a good way to implement it yet
     // Execute the command or return error message. Numbers for menu options do not get processed here.
     if (isNaN(parseInt(command))) {
         if (inDatabase || inManual || inMenu) {

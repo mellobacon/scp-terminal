@@ -147,11 +147,14 @@
     border: none;
 }
 .wiki-content-table th {
-    background-color: #5454548c;
+    background-color: #5454548c !important;
 }
 table, td, th, tr {
     border: solid white 1px;
     padding: 10px;
+}
+table[style], td[style], th[style], tr[style] {
+    background-color: transparent;
 }
 
 .page-data #u-adult-warning {

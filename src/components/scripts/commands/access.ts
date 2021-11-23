@@ -3,7 +3,7 @@ import cheerio from 'cheerio';
 import $ from "jquery";
 import { pageData, getRandomInt, span, listItem, scrollToLink } from "../util";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
-import { ipcRenderer } from "electron";
+import { ipcRenderer, shell } from "electron";
 
 const termwindow = $("#window");
 const scphistory = $("#scp-list ul");
@@ -59,7 +59,7 @@ const handleClick = async () => {
                             // if the link isnt part of the scp wiki domain its an external link which i will handle later
                             let wiki = /(^(https)|(http)):\/\/((scp-wiki)|(www\.scp-wiki))/gm;
                             if (!wiki.test(url)) {
-                                termwindow.append("\nexternal site\n");
+                                termwindow.append("\nOpened external site\n");
                                 getUrl(url, scp, false).then(() => {
                                     termwindow.append("root@user:~$ ");
                                     return;
@@ -97,6 +97,7 @@ const handleClick = async () => {
 
 const getUrl = async (url: string, scp: string, valid: boolean = true) => {
     if (!valid) {
+        shell.openExternal(url);
         return;
     }
     const a = axios.create();

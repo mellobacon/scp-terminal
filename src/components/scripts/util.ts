@@ -86,10 +86,15 @@ const getRandomInt = (min:number, max:number) => {
 const scrollToLink = () => {
     const pages = document.getElementsByClassName("page-data");
     const page = pages[pages.length - 1];
-    termwindow_.scrollTo({
-        top: termwindow_.scrollHeight - page.scrollHeight - 75,
-        behavior: "smooth"
-    })
+    if (page == null) {
+        scrollPage();
+    }
+    else {
+        termwindow_.scrollTo({
+            top: termwindow_.scrollHeight - page.scrollHeight - 75,
+            behavior: "smooth"
+        })
+    }
 }
 
 export {

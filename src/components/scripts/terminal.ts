@@ -95,12 +95,14 @@ const processCommand = async () => {
         }
         else if (typedCommand == null) termwindow.append(span("status-fail", `Command not found: ${command}\n`));
         else await typedCommand.function(args);
-        if (typedCommand.name == "access") {
-            scrollToLink();
-        }
-        else {
-            scrollPage();
-        }
+        if (typedCommand != null) {
+            if (typedCommand.name == "access") {
+                scrollToLink();
+            }
+            else {
+                scrollPage();
+            }
+        } 
     }
 
     // Clear the command for next input

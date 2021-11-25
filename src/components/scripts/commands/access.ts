@@ -20,65 +20,68 @@ const access = async (args: any[]) => {
             return;
         }
         termwindow.append("Loading...\n");
+        let url = "";
+        let scp = args[0];
         if (!args[0].startsWith("scp-")) {
             if (args[0] === "random") {
                 // Get a random scp link
                 const num = getRandomInt(0, 6999);
                 const scpnum = new Intl.NumberFormat('en-US', { minimumIntegerDigits: 3 }).format(num).toString().replace(",", "");
-                const url = `http://scp-wiki.wikidot.com/scp-${scpnum}`;
-
-                await getUrl(url, `scp-${scpnum}`);
-                return;
+                url = `http://scp-wiki.wikidot.com/scp-${scpnum}`;
+                scp = `scp-${scpnum}`;
             }
             else {
-                await getUrl(args[0], "EXTERNAL SITE");
+                termwindow.append(span("status-fail", "Error: Invalid format. Type 'access -help' for help.\n"));
+                return;
             }
-            termwindow.append(span("status-fail", "Error: Invalid format. Type 'access -help' for help.\n"));
-            return;
         }
-        const url = `http://scp-wiki.wikidot.com/${args[0]}`;
-        await getUrl(url, `${args[0]}`);
+        else {
+            url = `http://scp-wiki.wikidot.com/${args[0]}`;
+        }
+        await getUrl(url, scp);
         termwindow.append("Loading complete\n");
     }
 }
 
 const handleClick = async () => {
     // recursion is dumb and everything is dumb
-    let r = () => {
-        document.querySelectorAll(".page-data a").forEach((link) => {
-            link.addEventListener("click", (e) => {
-                e.preventDefault();
-                if (link.hasAttribute("href")) {
-                    let scp = link.getAttribute("href")?.replace(/^\//gm, "")!;
-                    ipcRenderer.send("execute", scp);
-                    ipcRenderer.once("view", (_, output) => {
-                        let status = output[0];
-                        let url = output[1];
-    
-                        if (status == 200) {
-                            // if the link isnt part of the scp wiki domain its an external link which i will handle later
-                            let wiki = /(^(https)|(http)):\/\/((scp-wiki)|(www\.scp-wiki))/gm;
-                            if (!wiki.test(url)) {
-                                termwindow.append("\nOpened external site\n");
-                                getUrl(url, scp, false).then(() => {
-                                    termwindow.append("root@user:~$ ");
-                                    return;
-                                })
-                            }
-                            else {
-                                getUrl(url, scp).then(() => {
-                                    termwindow.append("root@user:~$ ");
-                                    scrollToLink();
-                                    return;
-                                })
-                            }
-                        }
-                    })
+    document.querySelectorAll(".page-data a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            accessLink(link);
+        })
+    });
+
+    function accessLink(link: Element) {
+        if (link.hasAttribute("href")) {
+            let scp = link.getAttribute("href")?.replace(/^\//gm, "")!;
+            ipcRenderer.send("execute", scp);
+            ipcRenderer.once("view", (_, output) => {
+                let status = output[0];
+                let url = output[1];
+
+                // TODO: Fix recursion issue
+                if (status == 200) {
+                    // if the link isnt part of the scp wiki domain its an external link which i will handle later
+                    let wiki = /(^(https)|(http)):\/\/((scp-wiki)|(www\.scp-wiki))/gm;
+                    if (!wiki.test(url)) {
+                        termwindow.append("\nOpened external site\n");
+                        getUrl(url, scp, false).then(() => {
+                            termwindow.append("root@user:~$ ");
+                            return;
+                        })
+                    }
+                    else {
+                        getUrl(url, scp).then(() => {
+                            termwindow.append("root@user:~$ ");
+                            scrollToLink();
+                            return;
+                        })
+                    }
                 }
-            });
-        });
+            })
+        }
     }
-    r();
 
     $(".collapsible-block").each((_, block) => {
         let foldedblock = $(block).children()[0];

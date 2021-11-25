@@ -1,5 +1,5 @@
 {
-  "name": "scp-terminal",
+  "name": "scpterminal",
   "version": "0.0.1",
   "main": "dist/main.js",
   "description": "an scp terminal made in electron",
@@ -13,7 +13,7 @@
     "dist/**/**"
   ],
   "build": {
-    "appId": "com.scp-terminal",
+    "appId": "com.scpterminal",
     "win": {
       "target": [
         "nsis",

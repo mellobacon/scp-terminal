@@ -150,7 +150,7 @@
     background-color: #5454548c !important;
 }
 table, td, th, tr {
-    border: solid white 1px;
+    border: solid white 1px !important;
     padding: 10px;
 }
 table[style], td[style], th[style], tr[style] {

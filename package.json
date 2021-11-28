@@ -28,6 +28,11 @@
         "AppImage"
       ]
     },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
     "icon": "dist/icon.png",
     "files": [
       "dist/**/**",

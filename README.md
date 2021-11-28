@@ -40,3 +40,5 @@
 <p>Made by <a href="https://github.com/mellobacon">@mellobacon</a>
 
 For reference on what the scp foundation is, visit https://scp-wiki.wikidot.com/about-the-scp-foundation.
+  
+### The project is still under development. So feel free to contribute!

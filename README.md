@@ -19,6 +19,8 @@
 
 <h2>Known Issues</h2>
 
+**This project is a WIP. Bugs and missing or incomplete features will be present**
+
 - The terminal will go into an infinite loop when you try click more than one link on the same page. For now pressing <code>esc</code> a million times should do the trick temporarily but it is recommended to just restart the app when this happens until a fix is available.
 
 <div>

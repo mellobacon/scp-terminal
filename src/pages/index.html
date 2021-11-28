@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../components/styles/page-content.css" />
     <!-- Simple trick to make things work so you can use import/exports of typescript, 
             since tsc compiles it to esModule, but in the future I'll use webpack -->
-    <script>
+    <script type="text/javascript">
       const exports = {};
     </script>
   </head>
@@ -54,7 +54,8 @@
     <div id="toolbar">
       <div id="personnel-text">
         <div class="personnel-title">SCP Containment Specialist (Level 2)</div>
-        <div class="personnel-site">SITE-19</div>
+        <!-- Fallback -->
+        <div class="personnel-site" id="random-site">SITE-01</div>
       </div>
     </div>
     <div class="term-container">
@@ -63,6 +64,14 @@
       </div>
     </div>
   </body>
-  <script src="../components/scripts/terminal.js"></script>
-  <script src="../renderer.js"></script>
+  <script
+    src="../components/scripts/terminal.js"
+    type="text/javascript"
+  ></script>
+  <script src="../renderer.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    document.querySelector(
+      '#random-site'
+    ).innerHTML = `SITE-${siteStringNumber}`;
+  </script>
 </html>

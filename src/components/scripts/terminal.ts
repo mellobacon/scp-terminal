@@ -7,6 +7,8 @@ const {
   span,
   scrollPage,
   scrollToLink,
+  siteStringNumber,
+  name,
 } = require('../components/scripts/util.js');
 let {
   inMenu,
@@ -68,7 +70,7 @@ const appendPrompt = () => {
 
   //termwindow.append(`┌ root@sudo-user\n`)
   //termwindow.append("└ $ ");
-  termwindow.append('root@user:~$ ');
+  termwindow.append(`${name}@site-${siteStringNumber}:~$ `);
   //scrollPage();
 };
 

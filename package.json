@@ -14,8 +14,8 @@
     "start": "yarn build && electron ."
   },
   "lint-staged": {
-    "*.{js,ts}": [
-      "prettier --write"
+    "*": [
+      "prettier --write --ignore-unknown"
     ]
   },
   "dependencies": {

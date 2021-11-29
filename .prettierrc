@@ -1,6 +1,6 @@
 {
-  "bracketSpacing": false,
-  "singleQuote": true,
+  "bracketSpacing": true,
+  "singleQuote": false,
   "trailingComma": "es5",
   "arrowParens": "avoid"
 }

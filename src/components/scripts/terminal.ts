@@ -1,6 +1,6 @@
 import $ from "jquery";
 const commands = require("../components/scripts/commands.js").cmdlist;
-const { promptBox, pathBox, powerBox, span, scrollPage, scrollToLink } = require("../components/scripts/util.js");
+const { promptBox, pathBox, powerBox, span, scrollPage, scrollToLink, getRandomInt } = require("../components/scripts/util.js");
 
 const termwindow = $("#window");
 let input : JQuery<HTMLElement>;
@@ -45,9 +45,13 @@ function clearCommand(){
     }
 }
 
+// TODO either remove these or actually use them
 const prompt_ = promptBox(`@bright`);
 let path_ = pathBox("scp.net");
 const powerbox_ = powerBox(prompt_, path_);
+
+const name = ["Bjornsen", "Conwell", "Labelle", "Lloyd", "Bright", "Cimmerian", "Clef", "Crow", "Gears", "user"]
+const random = getRandomInt(0, name.length - 1);
 /**
  * Appends the prompt to the terminal window
  */
@@ -56,7 +60,7 @@ const appendPrompt = () => {
 
     //termwindow.append(`┌ root@sudo-user\n`)
     //termwindow.append("└ $ ");
-    termwindow.append("root@user:~$ ");
+    termwindow.append(`${name[random]}@Site-19:~$ `);
 }
 
 /**
@@ -76,8 +80,7 @@ const processCommand = async () => {
     const typedCommand = commands.find((cmd: { name: string; }) => cmd.name === args[0]);
     args.shift();
 
-    // TODO: Get rid of the old manual functionality. I havent figured out a good way to implement it yet
-    // Execute the command or return error message. Numbers for menu options do not get processed here.
+    // Execute the command or return error message.
     if (typedCommand == null) {
         termwindow.append(span("status-fail", `Command not found: ${command}\n`));
     }
@@ -98,6 +101,12 @@ const processCommand = async () => {
     else scrollPage();
 }
 
+const updateInput = () => {
+    input.removeClass("current cursor-block");
+    termwindow.append(span("cmd-input cursor-block current", ""));
+    input = $(".current");
+}
+
 /**
  * Renders things to the terminal on startup
  */
@@ -109,12 +118,6 @@ const startTerminal = () => {
 
     termwindow.append("Welcome to SCiPnet v0.0.2. For commands, type 'help'. To exit, type 'exit'. For more info, type 'manual'.\n")
     appendPrompt();
-    termwindow.append(span("cmd-input cursor-block current", ""));
-    input = $(".current");
-}
-
-const updateInput = () => {
-    input.removeClass("current cursor-block");
     termwindow.append(span("cmd-input cursor-block current", ""));
     input = $(".current");
 }

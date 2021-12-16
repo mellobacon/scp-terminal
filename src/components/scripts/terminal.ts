@@ -1,11 +1,8 @@
-import { inAppPurchase } from "electron";
 import $ from "jquery";
 const commands = require("../components/scripts/commands.js").cmdlist;
 const { promptBox, pathBox, powerBox, span, scrollPage, scrollToLink } = require("../components/scripts/util.js");
-let { inMenu, inDatabase, inManual } = require("../components/scripts/commands/commandUtils.js");
 
 const termwindow = $("#window");
-//let input = document.getElementsByClassName("cmd-input")[document.getElementsByClassName("cmd-input").length - 1];
 let input : JQuery<HTMLElement>;
 
 let command = "";
@@ -60,7 +57,6 @@ const appendPrompt = () => {
     //termwindow.append(`┌ root@sudo-user\n`)
     //termwindow.append("└ $ ");
     termwindow.append("root@user:~$ ");
-    //scrollPage();
 }
 
 /**

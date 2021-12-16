@@ -78,7 +78,6 @@ const getRandomInt = (min:number, max:number) => {
  const scrollPage = () => {
     termwindow_.scrollBy({
         top: termwindow_.scrollHeight,
-        //top: document.querySelector(".page-data")?.scrollHeight,
         behavior: "smooth"
     })
 }

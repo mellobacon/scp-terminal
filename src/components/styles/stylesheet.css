@@ -17,7 +17,6 @@ html, body {
     padding: 0vh;
     overflow: hidden;
     font-family: 'Fira Code', monospace;
-    /*background-color: rgba(17, 36, 39, 0.35);*/
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
 }
@@ -226,15 +225,20 @@ input[type="checkbox"]:checked ~ #sidebar {
     background-size: 50%;
     background-position: center;
 }
-#window::after {
+.cmd-input {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-y: auto;
+    word-break: break-all;
+}
+.current::after {
     display: inline-block;
     vertical-align: 0em;
     background: #ffffff;
     content: " ";
-    animation: blink 1105ms steps(1) infinite; /* 940 - old */
+    animation: blink 1105ms steps(1) infinite;
 }
 #window-background {
-    /*background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("../../components/images/scplogo.png");*/
     background-color: black;
     background-repeat: no-repeat;
     background-size: contain;

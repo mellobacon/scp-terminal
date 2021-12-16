@@ -15,10 +15,12 @@ document.getElementById('file')!.addEventListener('click', () => {
 
 let win = document.getElementById("window");
 ipcRenderer.on("unfocused", () => {
-    win?.classList.add("pause-cursor-unfocused");
+    let cmdinput = document.getElementsByClassName("cmd-input")[document.getElementsByClassName("cmd-input").length - 1];
+    cmdinput.classList.add("pause-cursor-unfocused");
 });
 ipcRenderer.on("focused", () => {
-    win?.classList.remove("pause-cursor-unfocused");
+    let cmdinput = document.getElementsByClassName("cmd-input")[document.getElementsByClassName("cmd-input").length - 1];
+    cmdinput.classList.remove("pause-cursor-unfocused");
 });
 document.onkeydown = (e) => {
     if ((e.code == "Minus" || e.code == "Equal") && (e.ctrlKey || e.metaKey)) {

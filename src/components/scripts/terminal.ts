@@ -1,10 +1,12 @@
+import { inAppPurchase } from "electron";
 import $ from "jquery";
 const commands = require("../components/scripts/commands.js").cmdlist;
 const { promptBox, pathBox, powerBox, span, scrollPage, scrollToLink } = require("../components/scripts/util.js");
 let { inMenu, inDatabase, inManual } = require("../components/scripts/commands/commandUtils.js");
 
 const termwindow = $("#window");
-const termwindow_ = document.querySelector("#window")!; // for scrolling to work
+//let input = document.getElementsByClassName("cmd-input")[document.getElementsByClassName("cmd-input").length - 1];
+let input : JQuery<HTMLElement>;
 
 let command = "";
 const commandHistory = [''];
@@ -16,16 +18,16 @@ let historyIndex = 0;
 const appendCommand = (str: string) => {
     switch(str){
         case "<":
-            termwindow.append('&lt;');
+            input.append('&lt;');
             break;
         case ">":
-            termwindow.append('&gt;');
+            input.append('&gt;');
             break;
         case "&":
-            termwindow.append('&amp;');
+            input.append('&amp;');
             break;
         default:
-            termwindow.append(str);
+            input.append(str);
             break;    
     }
     command += str;
@@ -37,7 +39,7 @@ const appendCommand = (str: string) => {
  */
 const erase = (n: number) => {
     command = command.slice(0, -n);
-    termwindow.html(termwindow.html().slice(0, -n));
+    input.html(input.text().slice(0, -n));
 }
 
 function clearCommand(){
@@ -80,30 +82,10 @@ const processCommand = async () => {
 
     // TODO: Get rid of the old manual functionality. I havent figured out a good way to implement it yet
     // Execute the command or return error message. Numbers for menu options do not get processed here.
-    if (isNaN(parseInt(command))) {
-        if (inDatabase || inManual || inMenu) {
-            console.log(command);
-            if (command === "manual") {
-                inManual = false;
-                inMenu = false;
-                inDatabase = false;
-                command = "";
-                appendPrompt();
-                return;
-            }
-            termwindow.append(span("status-fail", "Not a supported menu option. To use commands, exit the menu by typing 'manual'\n"));
-        }
-        else if (typedCommand == null) termwindow.append(span("status-fail", `Command not found: ${command}\n`));
-        else await typedCommand.function(args);
-        if (typedCommand != null) {
-            if (typedCommand.name == "access") {
-                scrollToLink();
-            }
-            else {
-                scrollPage();
-            }
-        } 
+    if (typedCommand == null) {
+        termwindow.append(span("status-fail", `Command not found: ${command}\n`));
     }
+    else await typedCommand.function(args);
 
     // Clear the command for next input
     commandHistory.splice(1, 0, command);
@@ -111,19 +93,34 @@ const processCommand = async () => {
     historyIndex = 0;
     commandHistory[0] = "";
     appendPrompt();
+    updateInput();
+    if (typedCommand != null) {
+        if (typedCommand.name == "access") {
+            scrollToLink();
+        }
+    }
+    else scrollPage();
 }
 
 /**
  * Renders things to the terminal on startup
  */
 const startTerminal = () => {
-    termwindow.append(`SCiPnet Data Network [version 0.0.1] ${span("status-success", "active")}\n\n`);
+    termwindow.append(`SCiPnet Data Network [version 0.0.2] ${span("status-success", "active")}\n\n`);
     termwindow.append(span("status-red-alert", "WARNING. THE SCP FOUNDATION DATABASE IS CLASSIFIED! ACCESS BY UNAUTHORIZED PERSONNEL IS STRICTLY PROHIBITED! PERPETRATORS WILL BE TRACKED, LOCATED, AND DETAINED!\n\n"));
 
     setLogin();
 
-    termwindow.append("Welcome to SCiPnet v0.0.1. For commands, type 'help'. To exit, type 'exit'. For more info, type 'manual'.\n")
+    termwindow.append("Welcome to SCiPnet v0.0.2. For commands, type 'help'. To exit, type 'exit'. For more info, type 'manual'.\n")
     appendPrompt();
+    termwindow.append(span("cmd-input cursor-block current", ""));
+    input = $(".current");
+}
+
+const updateInput = () => {
+    input.removeClass("current cursor-block");
+    termwindow.append(span("cmd-input cursor-block current", ""));
+    input = $(".current");
 }
 
 // Allows typing
@@ -138,6 +135,7 @@ document.addEventListener("keypress", async (e) => {
             else {
                 appendPrompt();
                 scrollPage();
+                updateInput();
             }
             break;
         default:
@@ -182,10 +180,10 @@ document.addEventListener("keydown", (e) => {
 
 // Cursor handling
 document.addEventListener("keydown", (e) => {
-    termwindow_.classList.add("pause-cursor");
+    input.addClass("pause-cursor");
 })
 document.addEventListener("keyup", (e) => {
-    termwindow_.classList.remove("pause-cursor");
+    input.removeClass("pause-cursor");
 })
 
 startTerminal();

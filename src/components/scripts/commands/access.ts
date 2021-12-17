@@ -1,7 +1,7 @@
 import axios from "axios";
 import cheerio from 'cheerio';
 import $ from "jquery";
-import { pageData, getRandomInt, span, listItem, scrollToLink } from "../util";
+import { pageData, getRandomInt, span, listItem, scrollToLink, appendPrompt } from "../util";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
 import { ipcRenderer, shell } from "electron";
 
@@ -67,13 +67,13 @@ const handleClick = async () => {
                     if (!wiki.test(url)) {
                         termwindow.append("\nOpened external site\n");
                         getUrl(url, scp, false).then(() => {
-                            termwindow.append("root@user:~$ ");
+                            appendPrompt();
                             return;
                         })
                     }
                     else {
                         getUrl(url, scp).then(() => {
-                            termwindow.append("root@user:~$ ");
+                            appendPrompt();
                             scrollToLink();
                             return;
                         })

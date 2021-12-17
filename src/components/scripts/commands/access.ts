@@ -8,6 +8,7 @@ import { ipcRenderer, shell } from "electron";
 const termwindow = $("#window");
 const scphistory = $("#scp-list ul");
 
+let accessfail = false;
 const access = async (args: any[]) => {
     checkOptions(args, null, 1);
     if (helpflag) {
@@ -17,6 +18,7 @@ const access = async (args: any[]) => {
     if (!error) {
         if (!args[0]) {
             termwindow.append(span("status-fail", "Error: Invalid format. Type 'access -help' for help.\n"));
+            accessfail = true;
             return;
         }
         termwindow.append("Loading...\n");
@@ -32,6 +34,7 @@ const access = async (args: any[]) => {
             }
             else {
                 termwindow.append(span("status-fail", "Error: Invalid format. Type 'access -help' for help.\n"));
+                accessfail = true;
                 return;
             }
         }
@@ -40,6 +43,7 @@ const access = async (args: any[]) => {
         }
         await getUrl(url, scp);
         termwindow.append("Loading complete\n");
+        accessfail = false;
     }
 }
 
@@ -140,5 +144,6 @@ const getUrl = async (url: string, scp: string, valid: boolean = true) => {
 }
 
 export {
-    access
+    access,
+    accessfail
 }

@@ -1,6 +1,6 @@
 import $ from "jquery";
 const commands = require("../components/scripts/commands.js").cmdlist;
-const { promptBox, pathBox, powerBox, span, scrollPage, scrollToLink, getRandomInt } = require("../components/scripts/util.js");
+const { span, scrollPage, scrollToLink, getVersion, appendPrompt } = require("../components/scripts/util.js");
 
 const termwindow = $("#window");
 let input : JQuery<HTMLElement>;
@@ -43,24 +43,6 @@ function clearCommand(){
     if (command.length > 0){
         erase(command.length);
     }
-}
-
-// TODO either remove these or actually use them
-const prompt_ = promptBox(`@bright`);
-let path_ = pathBox("scp.net");
-const powerbox_ = powerBox(prompt_, path_);
-
-const name = ["Bjornsen", "Conwell", "Labelle", "Lloyd", "Bright", "Cimmerian", "Clef", "Crow", "Gears", "user"]
-const random = getRandomInt(0, name.length - 1);
-/**
- * Appends the prompt to the terminal window
- */
-const appendPrompt = () => {
-    //termwindow.append(`${powerbox_} `);
-
-    //termwindow.append(`┌ root@sudo-user\n`)
-    //termwindow.append("└ $ ");
-    termwindow.append(`${name[random]}@Site-19:~$ `);
 }
 
 /**
@@ -110,13 +92,13 @@ const updateInput = () => {
 /**
  * Renders things to the terminal on startup
  */
-const startTerminal = () => {
-    termwindow.append(`SCiPnet Data Network [version 0.0.2] ${span("status-success", "active")}\n\n`);
+const startTerminal = async () => {
+    termwindow.append(`SCiPnet Data Network [version ${await getVersion()}] ${span("status-success", "active")}\n\n`);
     termwindow.append(span("status-red-alert", "WARNING. THE SCP FOUNDATION DATABASE IS CLASSIFIED! ACCESS BY UNAUTHORIZED PERSONNEL IS STRICTLY PROHIBITED! PERPETRATORS WILL BE TRACKED, LOCATED, AND DETAINED!\n\n"));
 
     setLogin();
 
-    termwindow.append("Welcome to SCiPnet v0.0.2. For commands, type 'help'. To exit, type 'exit'. For more info, type 'manual'.\n")
+    termwindow.append(`Welcome to SCiPnet v${await getVersion()}. For commands, type 'help'. To exit, type 'exit'. For more info, type 'manual'.\n`)
     appendPrompt();
     termwindow.append(span("cmd-input cursor-block current", ""));
     input = $(".current");

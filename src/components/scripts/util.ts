@@ -1,4 +1,7 @@
+import { ipcRenderer } from "electron";
+import $ from "jquery";
 const termwindow_ = document.querySelector("#window")!;
+const termwindow = $("#window");
 
 /**
  * Timeout but better
@@ -6,6 +9,31 @@ const termwindow_ = document.querySelector("#window")!;
  */
  const sleep = (ms: any) => {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const getVersion = async () => {
+    const version: string = await ipcRenderer.invoke("getversion");
+    return version;
+}
+
+
+const getRandomInt = (min:number, max:number) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+const name = ["Bjornsen", "Conwell", "Labelle", "Lloyd", "Bright", "Cimmerian", "Clef", "Crow", "Gears", "user"]
+const random = getRandomInt(0, name.length - 1);
+/**
+ * Appends the prompt to the terminal window
+ */
+const appendPrompt = () => {
+    //termwindow.append(`${powerbox_} `);
+
+    //termwindow.append(`┌ root@sudo-user\n`)
+    //termwindow.append("└ $ ");
+    termwindow.append(`${name[random]}@Site-19:~$ `);
 }
 
 /**
@@ -66,12 +94,6 @@ const span = (classname: string, message: string) => {
     return "<span class=\"" + classname + "\">" + message + "</span>";
 }
 
-const getRandomInt = (min:number, max:number) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-}
-
 /**
  * Enables smooth scrolling down the window
  */
@@ -108,5 +130,7 @@ export {
     scrollPage,
     listItem,
     sleep,
-    scrollToLink
+    scrollToLink,
+    getVersion,
+    appendPrompt
 }

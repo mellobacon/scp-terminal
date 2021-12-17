@@ -1,6 +1,5 @@
 import $ from "jquery";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
-import { showMainMenu } from "./commandUtils";
 import { span, pageData } from "../util";
 
 const termwindow = $("#window");

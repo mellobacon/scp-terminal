@@ -77,7 +77,7 @@ const processCommand = async () => {
     updateInput();
     if (typedCommand != null) {
         if (typedCommand.name == "access") {
-            scrollToLink(args);
+            scrollToLink();
         }
     }
     else scrollPage();

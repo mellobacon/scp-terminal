@@ -29,10 +29,6 @@ const random = getRandomInt(0, name.length - 1);
  * Appends the prompt to the terminal window
  */
 const appendPrompt = () => {
-    //termwindow.append(`${powerbox_} `);
-
-    //termwindow.append(`┌ root@sudo-user\n`)
-    //termwindow.append("└ $ ");
     termwindow.append(`${name[random]}@Site-19:~$ `);
 }
 
@@ -104,7 +100,7 @@ const span = (classname: string, message: string) => {
     })
 }
 
-const scrollToLink = (args: any[] = []) => {
+const scrollToLink = () => {
     const pages = document.getElementsByClassName("page-data");
     const page = pages[pages.length - 1];
     if (page == null || accessfail) {

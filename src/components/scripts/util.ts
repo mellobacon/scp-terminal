@@ -1,5 +1,6 @@
 import { ipcRenderer } from "electron";
 import $ from "jquery";
+import { accessfail } from "./commands/access";
 const termwindow_ = document.querySelector("#window")!;
 const termwindow = $("#window");
 
@@ -15,7 +16,6 @@ const getVersion = async () => {
     const version: string = await ipcRenderer.invoke("getversion");
     return version;
 }
-
 
 const getRandomInt = (min:number, max:number) => {
     min = Math.ceil(min);
@@ -104,10 +104,10 @@ const span = (classname: string, message: string) => {
     })
 }
 
-const scrollToLink = () => {
+const scrollToLink = (args: any[] = []) => {
     const pages = document.getElementsByClassName("page-data");
     const page = pages[pages.length - 1];
-    if (page == null) {
+    if (page == null || accessfail) {
         scrollPage();
     }
     else {

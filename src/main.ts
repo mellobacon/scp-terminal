@@ -61,6 +61,10 @@ ipcMain.on("minimize", () => {
     BrowserWindow.getFocusedWindow()!.minimize();
 })
 
+ipcMain.handle("getversion", () => {
+    return app.getVersion();
+})
+
 app.on("activate", () => {
     if (mainWindow === null) {
         createWindow();

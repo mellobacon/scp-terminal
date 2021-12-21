@@ -142,11 +142,11 @@ document.addEventListener("keydown", (e) => {
         
         // Up key
         if (key === 38) {
-            if(historyIndex < commandHistory.length - 1) historyIndex++;
+            if (historyIndex < commandHistory.length - 1) historyIndex++;
         } 
         // Down key
         else if (key === 40) {
-            if(historyIndex > 0) historyIndex--;
+            if (historyIndex > 0) historyIndex--;
         }
 
         // Get command and append it to the terminal
@@ -154,6 +154,20 @@ document.addEventListener("keydown", (e) => {
         if (cmd != undefined) {
             clearCommand();
             appendCommand(cmd);
+        }
+        scrollPage();
+    }
+    // Allows tab completion for commands
+    if (key === 9) {
+        e.preventDefault();
+        const args = command.split(" ");
+        const typedCommand = args[0];
+        const commandslist = commands; // copying it so we dont filter the actual list. something something safety
+        const suggestedCommands = commandslist.filter(((cmd: { name: string; }) => cmd.name.startsWith(typedCommand)));
+        let suggestion = suggestedCommands.find((cmd: { name: string }) => cmd.name.startsWith(typedCommand));
+        if (suggestion != undefined) {
+            clearCommand();
+            appendCommand(suggestion.name);
         }
         scrollPage();
     }

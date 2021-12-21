@@ -21,15 +21,24 @@ const test = async (args: any[]) => {
         // e
     }
 }
-
 const commands_ = [
     {
-        "name": "search",
-        "usage": "search [flags] : Example: search -k",
-        "args": ["-s", "-e", "-k", "-t", "-j"],
-        "argsd": ["safe scps", "euclid scps", "keter scps", "thaumiel scps", "joke scps"],
-        "description": "search - Lists all scps or filtered scps set by flags",
-        "function": search
+        "name": "access",
+        "description": "access - Access a scp file",
+        "usage": "access [scp || 'random'] : Example: access scp-173 || access random",
+        "function": access
+    },
+    {
+        "name": "clear",
+        "description": "clear - Clears the terminal",
+        "usage": "clear",
+        "function": clear
+    },
+    {
+        "name": "clear-history",
+        "description": "clear-history - Clears the scp history",
+        "usage": "clear-history",
+        "function": clear_history
     },
     {
         "name": "exit",
@@ -50,10 +59,12 @@ const commands_ = [
         "function": manual
     },
     {
-        "name": "access",
-        "description": "access - Access a scp file",
-        "usage": "access [scp || 'random'] : Example: access scp-173 || access random",
-        "function": access
+        "name": "search",
+        "usage": "search [flags] : Example: search -k",
+        "args": ["-s", "-e", "-k", "-t", "-j"],
+        "argsd": ["safe scps", "euclid scps", "keter scps", "thaumiel scps", "joke scps"],
+        "description": "search - Lists all scps or filtered scps set by flags",
+        "function": search
     },
     /*
     {
@@ -63,18 +74,6 @@ const commands_ = [
         "function": test
     },
     */
-    {
-        "name": "clear-history",
-        "description": "clear-history - Clears the scp history",
-        "usage": "clear-history",
-        "function": clear_history
-    },
-    {
-        "name": "clear",
-        "description": "clear - Clears the terminal",
-        "usage": "clear",
-        "function": clear
-    }
 ]
 
 exports.cmdlist = commands_;

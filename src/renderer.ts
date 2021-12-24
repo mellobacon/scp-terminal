@@ -9,8 +9,30 @@ document.getElementById('maximize')!.addEventListener('click', () => {
 document.getElementById('minimize')!.addEventListener('click', () => {
     ipcRenderer.send('minimize');
 })
-document.getElementById('file')!.addEventListener('click', () => {
+document.getElementById('file-button')!.addEventListener('click', () => {
+    if (document.getElementById('file-dropdown')?.classList.contains("show")) {
+        document.getElementById('file-dropdown')?.classList.remove("show");
+    }
+    else {
+        document.getElementById('file-dropdown')?.classList.add("show");
+    }
+})
+document.getElementById('view-button')!.addEventListener('click', () => {
+    if (document.getElementById('view-dropdown')?.classList.contains("show")) {
+        document.getElementById('view-dropdown')?.classList.remove("show");
+    }
+    else {
+        document.getElementById('view-dropdown')?.classList.add("show");
+    }
+})
+document.getElementById('debug')!.addEventListener('click', () => {
     ipcRenderer.send('debug');
+})
+document.getElementById('about')!.addEventListener('click', () => {
+    ipcRenderer.send('about');
+})
+document.getElementById('exit')!.addEventListener('click', () => {
+    ipcRenderer.send('close');
 })
 
 let win = document.getElementById("window");

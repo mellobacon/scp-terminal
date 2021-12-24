@@ -20,6 +20,9 @@ html, body {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
 }
+hr {
+    border-style: solid;
+}
 
 /*
 * TITLE BAR
@@ -66,7 +69,39 @@ html, body {
     font-size: 15px;
     padding-top: 7px;
 }
-#file:hover, #view:hover {
+
+#file-button {
+    cursor: pointer;
+}
+#file-button:hover {
+    text-decoration: underline;
+}
+.dropdown {
+    background-color: #171717;
+    box-shadow: 0px 3px 7px 0px #2c2c2c;
+    border: solid 1px;
+    z-index: 50;
+    width: 100px;
+    padding: 5px 5px 5px 10px;
+    position: absolute;
+    top: 35px;
+}
+.show {
+    display: block !important;
+}
+#file-dropdown {
+    display: none;
+}
+.dropdown ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.dropdown-item {
+    cursor: pointer;
+}
+.dropdown-item:hover {
     text-decoration: underline;
 }
 
@@ -95,9 +130,11 @@ html, body {
 #titlebar .titlebar-button {
     width: 25px;
     height: 25px;
-    cursor: pointer;
     border-radius: 50px;
     margin: 0 5px 0 0;
+}
+#titlebar-content-right #titlebar-buttons {
+    cursor: pointer;
 }
 
 #close:hover {

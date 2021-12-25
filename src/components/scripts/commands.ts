@@ -25,7 +25,7 @@ const commands_ = [
     {
         "name": "access",
         "description": "access - Access a scp file",
-        "usage": "access [scp || 'random'] : Example: access scp-173 || access random",
+        "usage": "access [scp or 'random'] : Example: access scp-173 or access random",
         "function": access
     },
     {
@@ -49,7 +49,7 @@ const commands_ = [
     {
         "name": "help",
         "description": "help - brings up help command",
-        "usage": "help || [command] -help : Example: manual -help",
+        "usage": "help or [command] -help : Example: manual -help",
         "function": help
     },
     {
@@ -63,7 +63,7 @@ const commands_ = [
         "usage": "search [flags] : Example: search -k",
         "args": ["-s", "-e", "-k", "-t", "-j"],
         "argsd": ["safe scps", "euclid scps", "keter scps", "thaumiel scps", "joke scps"],
-        "description": "search - Lists all scps or filtered scps set by flags",
+        "description": "search - Lists all scps or filtered scps set by flags\n\t Type 'search -help' for more info on valid flags",
         "function": search
     },
     /*

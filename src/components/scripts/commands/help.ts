@@ -5,6 +5,9 @@ import {h3} from "../util";
 
 const termwindow = $("#window");
 
+/**
+ * Display help for a command/commands
+ */
 const help = (args: any[]) => {
     checkOptions(args, null, 1);
     if (helpflag) {

@@ -19,6 +19,12 @@ type commandObject = ({
     argsd?: undefined;
 });
 
+/**
+ * Checks if supplied flags are valid
+ * @param args args from a command
+ * @param flags valid flags
+ * @param count number of flags
+ */
 const checkOptions = (args: any[], flags: string | any[] | null, count: number) => {
     error = false;
     if (args) {
@@ -40,11 +46,13 @@ const checkOptions = (args: any[], flags: string | any[] | null, count: number) 
             return;
         }
         else {
+            // uh...ig...just checks for stuff...idk i wrote this a while ago sue me
             if (flags === null && options.length > 0 && !options.includes(undefined)) {
                 error = true;
                 termwindow.append(span("status-fail", `'${options[0]}' does not match the supported flags.\n`));
                 return;
             }
+            // this is a mess and i dont remember what its doing
             if (flags) {
                 for (const f of flags) {
                     for (const p of options) {

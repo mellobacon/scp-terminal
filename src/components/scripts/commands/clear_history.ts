@@ -5,6 +5,10 @@ import $ from "jquery";
 const termwindow = $("#window")!;
 const scphistory = document.querySelector("#scp-list ul")!;
 
+/**
+ * Clears scp history
+ * @param args the command arguments
+ */
 const clear_history = (args: any[]) => {
     checkOptions(args, null, 1);
     if (helpflag) {

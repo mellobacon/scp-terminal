@@ -1,6 +1,9 @@
 import { ipcRenderer } from "electron";
 import {checkOptions, getHelp, helpflag, error} from "./commandUtils";
 
+/**
+ * Exits the app
+ */
 const exit = (args: any[]) => {
     checkOptions(args, null, 1);
     if (helpflag) {

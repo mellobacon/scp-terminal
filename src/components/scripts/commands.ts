@@ -63,7 +63,7 @@ const commands_ = [
         "usage": "search [flags] : Example: search -k",
         "args": ["-s", "-e", "-k", "-t", "-j"],
         "argsd": ["safe scps", "euclid scps", "keter scps", "thaumiel scps", "joke scps"],
-        "description": "search - Lists all scps or filtered scps set by flags\n\t Type 'search -help' for more info on valid flags",
+        "description": "search (May be buggy) - Lists all scps or filtered scps set by flags\n\t Type 'search -help' for more info on valid flags",
         "function": search
     },
     /*

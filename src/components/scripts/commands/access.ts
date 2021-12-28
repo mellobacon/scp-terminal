@@ -1,7 +1,7 @@
 import axios from "axios";
 import cheerio from 'cheerio';
 import $ from "jquery";
-import { pageData, getRandomInt, span, listItem, scrollToLink, appendPrompt } from "../util";
+import { pageData, getRandomInt, span, listItem, appendPrompt, scrollToLink } from "../util";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
 import { ipcRenderer, shell } from "electron";
 
@@ -9,84 +9,122 @@ const termwindow = $("#window");
 const scphistory = $("#scp-list ul");
 
 let accessfail = false;
+/**
+ * Get info on an scp and display it in the terminal
+ * @param args command arguments
+ */
 const access = async (args: any[]) => {
+    accessfail = false;
+
+    // Make sure the correct options are supplied
     checkOptions(args, null, 1);
+
+    // Display info on the command when `-help` is an argument
     if (helpflag) {
         getHelp("access");
         return;
     }
+
+    // Process the args given
     if (!error) {
+        // Will fail if there is no arguments supplied
         if (!args[0]) {
             termwindow.append(span("status-fail", "Error: Invalid format. Type 'access -help' for help.\n"));
             accessfail = true;
             return;
         }
+
         termwindow.append("Loading...\n");
         let url = "";
         let scp = args[0];
+
+        // Fetches the correct link based on the scp supplied. Unless the arg is 'random' or starts with the prefix 'scp-', the command will fail. 
         if (!args[0].startsWith("scp-")) {
             if (args[0] === "random") {
-                // Get a random scp link
+                // Get a random scp to display
                 const num = getRandomInt(0, 6999);
                 const scpnum = new Intl.NumberFormat('en-US', { minimumIntegerDigits: 3 }).format(num).toString().replace(",", "");
-                url = `http://scp-wiki.wikidot.com/scp-${scpnum}`;
                 scp = `scp-${scpnum}`;
+
+                // Fetch the link for the random scp
+                url = `http://scp-wiki.wikidot.com/scp-${scpnum}`;
             }
             else {
                 termwindow.append(span("status-fail", "Error: Invalid format. Type 'access -help' for help.\n"));
                 accessfail = true;
-                return;
             }
         }
         else {
+            // Fetch the link for the scp supplied in the command
             url = `http://scp-wiki.wikidot.com/${args[0]}`;
         }
-        await getUrl(url, scp);
-        termwindow.append("Loading complete\n");
-        accessfail = false;
+
+        // Attempt to display info on the scp
+        if (!accessfail) {
+            await getUrl(url, scp);
+        }
     }
 }
 
+/**
+ * Process what happens when a valid element is clicked on in the scp page
+ */
 const handleClick = async () => {
-    // recursion is dumb and everything is dumb
-    document.querySelectorAll(".page-data a").forEach((link) => {
+    // (had a lot of trouble getting this to work lmao). Enables clicking links in the scp pages
+    let pages = document.getElementsByClassName("page-data");
+    let page = pages[pages.length - 1];
+    page.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", (e) => {
             e.preventDefault();
             accessLink(link);
         })
     });
 
+    // yea i uh got lazy lol. this is stolen from terminal.ts
+    const updateInput = () => {
+        let input = $(".current");
+        input.removeClass("current cursor-block");
+        termwindow.append(span("cmd-input cursor-block current", ""));
+    }
+
+    // Process what happens when the link is clicked. Either displays in the terminal or opens the link in a browser. Fails if neither
     function accessLink(link: Element) {
         if (link.hasAttribute("href")) {
+            // The href link looks like '/scp-000' and that messes with getting the link. So I'm removing it (with regex because ftw)
             let scp = link.getAttribute("href")?.replace(/^\//gm, "")!;
+
+            // Jank but checks if the link is valid...should probably use handle() but meh
             ipcRenderer.send("execute", scp);
             ipcRenderer.once("view", (_, output) => {
                 let status = output[0];
                 let url = output[1];
-
-                // TODO: Fix recursion issue
+                let isvalid = true; // checks if the url is valid and/or if the data can be displayed in the terminal
+                
                 if (status == 200) {
-                    // if the link isnt part of the scp wiki domain its an external link which i will handle later
+                    // if the link isnt part of the scp wiki domain its an external link which just opens in the default browser
                     let wiki = /(^(https)|(http)):\/\/((scp-wiki)|(www\.scp-wiki))/gm;
                     if (!wiki.test(url)) {
                         termwindow.append("\nOpened external site\n");
-                        getUrl(url, scp, false).then(() => {
-                            appendPrompt();
-                            return;
-                        })
+                        isvalid = false;
                     }
-                    else {
-                        getUrl(url, scp).then(() => {
-                            appendPrompt();
-                            scrollToLink();
-                            return;
-                        })
-                    }
+                    // Proccess the link
+                    getUrl(url, scp, isvalid).then(() => {
+                        appendPrompt();
+                        updateInput();
+                        if (isvalid) scrollToLink();
+                        return;
+                    })
+                }
+                else {
+                    accessfail = true;
+                    termwindow.append(span("status-fail", `Link:${url} not available.\n`));
+                    return;
                 }
             })
         }
     }
 
+    // Toggles what is displayed based on if the block is folded or unfolded
     $(".collapsible-block").each((_, block) => {
         let foldedblock = $(block).children()[0];
         let unfoldedblock = $(block).children()[1];
@@ -102,14 +140,24 @@ const handleClick = async () => {
     })
 }
 
+/**
+ * Process the provided url
+ * @param url The url to access
+ * @param scp The scp to access. Optional.
+ * @param valid Whether the supplied link is valid or not. Optional.
+ * @returns 
+ */
 const getUrl = async (url: string, scp: string, valid: boolean = true) => {
+    // Opens the link in an external browser on your computer
     if (!valid) {
         shell.openExternal(url);
         return;
     }
+
+    // Create and process a request for the scp page data from the url. Will fail if it cant be accessed
     const a = axios.create();
     await a.get(url).then((html: { data: any; }) => {
-        // get the page
+        // get the page content
         const data = html.data;
         const content = cheerio.load(data);
         const scp_page = content("#page-content");
@@ -127,11 +175,12 @@ const getUrl = async (url: string, scp: string, valid: boolean = true) => {
         info.remove();
         content(".collapsible-block-link").removeAttr("href");
 
-        // append the data to the terminal
+        // append the data to the terminal and add the accessed scp to history
         termwindow.append(pageData(scp_page.html()?.trim()));
         scphistory.append(listItem(scp.toUpperCase()));
     }).catch((e) => {
         console.log(e);
+        accessfail = true;
         termwindow.append(span("status-fail", `${scp} not available.\n`));
         return;
     })

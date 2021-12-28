@@ -13,6 +13,7 @@ let historyIndex = 0;
  * @param str the command to append
  */
 const appendCommand = (str: string) => {
+    input = $(".current");
     switch(str){
         case "<":
             input.append('&lt;');
@@ -73,8 +74,10 @@ const processCommand = async () => {
     command = "";
     historyIndex = 0;
     commandHistory[0] = "";
+
     appendPrompt();
     updateInput();
+    
     if (typedCommand != null) {
         if (typedCommand.name == "access") {
             scrollToLink();

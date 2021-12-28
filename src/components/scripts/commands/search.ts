@@ -6,7 +6,13 @@ import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
 import { access } from "./access";
 
 const termwindow = $("#window");
+let joke = false;
 
+// TODO: Make a better way to search for scps
+/**
+ * Displays scps based on the 4 containment classes + joke scps
+ * @param args command arguments
+ */
 const search = async (args: any[]) => {
     const options = ["-s", "-e", "-k", "-t", "-j"];
     checkOptions(args, options, 2);
@@ -15,6 +21,7 @@ const search = async (args: any[]) => {
         return;
     }
     if (!error) {
+        joke = false;
         const a = axios.create();
         if (args[0] === "-s") {
             const url = `http://scp-wiki.wikidot.com/system:page-tags/tag/safe`;
@@ -73,6 +80,7 @@ const search = async (args: any[]) => {
             )
         }
         else if (args[0] === "-j") {
+            joke = true;
             const url = `http://scp-wiki.wikidot.com/joke-scps/noredirect/true`;
             await a.get(url).then(
                 (html: { data: any }) => {
@@ -95,10 +103,17 @@ const search = async (args: any[]) => {
 }
 
 const handleClick = () => {
-    $("a").each((i, l)=> {
-        l.addEventListener("click", (e)=> {
+    let content: JQuery<HTMLElement>;
+    if (joke) {
+        content = $(".content-panel a");
+    }
+    else {
+        content = $("#tagged-pages-list a");
+    }
+    content.each((_, link) => {
+        link.addEventListener("click", (e)=> {
             e.preventDefault();
-            access([l.getAttribute("href")?.replace(/^\//gm, "")]);
+            access([link.getAttribute("href")?.replace(/^\//gm, "")]);
         })
     })
 }

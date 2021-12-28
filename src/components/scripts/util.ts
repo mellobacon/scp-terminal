@@ -100,6 +100,9 @@ const span = (classname: string, message: string) => {
     })
 }
 
+/**
+ * Enables smooth scrolling to a page
+ */
 const scrollToLink = () => {
     const pages = document.getElementsByClassName("page-data");
     const page = pages[pages.length - 1];

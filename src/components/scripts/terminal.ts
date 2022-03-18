@@ -96,6 +96,7 @@ const updateInput = () => {
  * Renders things to the terminal on startup
  */
 const startTerminal = async () => {
+    // TODO: implement stuff for loading statuses
     termwindow.append(`SCiPnet Data Network [version ${await getVersion()}] ${span("status-success", "active")}\n\n`);
     termwindow.append(span("status-red-alert", "WARNING. THE SCP FOUNDATION DATABASE IS CLASSIFIED! ACCESS BY UNAUTHORIZED PERSONNEL IS STRICTLY PROHIBITED! PERPETRATORS WILL BE TRACKED, LOCATED, AND DETAINED!\n\n"));
 

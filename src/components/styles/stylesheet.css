@@ -153,66 +153,33 @@ hr {
     height: 35px;
     margin-top: 15px;
     margin-right: 15px;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
-#sidebarbutton {
-    position: absolute;
-    left: 0;
-    top: 70px;
-    width: 15px;
-    height: 30px;
-    background-color: white;
-    border: solid 2px #8c8c8c;
-    color: black;
-    z-index: 100;
-    transform: translateX(0);
-    transition: transform 250ms ease-in-out;
+/* STATUSES */
+#status {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 13px;
+    padding-left: 25px;
+    margin-top: -10px;
 }
-#sidebarbutton:hover {
-    cursor: pointer;
-}
-
-input[type="checkbox"] {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    display: none;
-}
-input[type="checkbox"]:checked ~ #sidetoolbar > #sidebarbutton {
-    transform: translateX(250px);
-}
-input[type="checkbox"]:checked ~ #sidebar {
-    transform: translateX(0);
+.status1, .status2 {
+    padding: 5px 10px 5px 10px;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
 }
 
-#sidebar {
-    background-color: black;
-    border: 1px solid #d0d0d0;
-    position: fixed;
-    left: 0;
-    width: 250px;
-    margin-top: 70px;
-    transform: translateX(-250px);
-    transition: transform 250ms ease-in-out;
-    height: 40%;
-    z-index: 100;
-    padding: 10px;
-    overflow-y: auto;
+.status, .statuscode {
+	font-size: 12px;
 }
-#sidebar::-webkit-scrollbar {
-    width: 6px;
-	background-color: #F5F5F5;
+
+.statusbox {
+	border: solid 1px #ffffff70;
+	padding: 2px 5px 2px 5px;
 }
-#sidebar::-webkit-scrollbar-track{
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #F5F5F5;
-}
-#sidebar::-webkit-scrollbar-thumb{
-    background-color: #808080;
-}
+
+/* PERSONNEL TEXT */
 
 #personnel-text {
     display: flex;
@@ -224,19 +191,6 @@ input[type="checkbox"]:checked ~ #sidebar {
 }
 .personnel-title {
     border-right: solid white 1px;
-}
-
-/*
-* SCP HISTORY TAB
-*/
-
-#scp-list ul {
-    margin-top: 0;
-    margin-bottom: 0;
-    list-style: decimal;
-}
-.scp-h-item:hover {
-    cursor: pointer;
 }
 
 /*

@@ -1,7 +1,7 @@
 import axios from "axios";
 import cheerio from 'cheerio';
 import $ from "jquery";
-import { pageData, getRandomInt, span, listItem, appendPrompt, scrollToLink } from "../util";
+import { pageData, getRandomInt, span, listItem, appendPrompt, scrollToLink, info } from "../util";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
 import { ipcRenderer, shell } from "electron";
 
@@ -156,6 +156,7 @@ const getUrl = async (url: string, scp: string, valid: boolean = true) => {
 
     // Create and process a request for the scp page data from the url. Will fail if it cant be accessed
     const a = axios.create();
+    const i = info(scp); // TODO: Add data from "https://elusionillusion.com/scp/acs-database/acs-database-merge.json"
     await a.get(url).then((html: { data: any; }) => {
         // get the page content
         const data = html.data;
@@ -174,6 +175,7 @@ const getUrl = async (url: string, scp: string, valid: boolean = true) => {
         mobileexit.remove();
         info.remove();
         content(".collapsible-block-link").removeAttr("href");
+        content(".anom-bar-container").replaceWith(i);
 
         // append the data to the terminal and add the accessed scp to history
         termwindow.append(pageData(scp_page.html()?.trim()));

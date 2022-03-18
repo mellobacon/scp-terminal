@@ -90,6 +90,11 @@ const span = (classname: string, message: string) => {
     return "<span class=\"" + classname + "\">" + message + "</span>";
 }
 
+
+const info = (scp: string, level = "N/A", clear = "N/A", containment = "N/A", secondary = "N/A", risk = "N/A", disruption = "N/A") => {
+    return `<div class=\"main-text\">Item #:<span class=\"item-number\">${scp}</span> - <span class=\"level-name\">${level}</span> (Clearance <span class=\"level-number\">${clear}</span>)</div><div class=\"containment-text\">Containment Class:<span class=\"containment-class\">${containment}</span></div><div class=\"disruption-text\">Disruption Class:<span class=\"disruption-class\">${disruption}</span></div><div class=\"secondary-containment-text\">Secondary Class:<span class=\"secondary-class\">${secondary}</span></div><div class=\"risk-text\">Risk Class:<span class=\"risk-class\">${risk}</span></div>`;
+}
+
 /**
  * Enables smooth scrolling down the window
  */
@@ -131,5 +136,6 @@ export {
     sleep,
     scrollToLink,
     getVersion,
-    appendPrompt
+    appendPrompt,
+    info
 }

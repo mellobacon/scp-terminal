@@ -1,5 +1,4 @@
-import { BrowserWindow, ipcRenderer } from "electron";
-import { ipcMain, app, net } from "electron";
+import { BrowserWindow, ipcMain, app, net } from "electron";
 import { join } from "path";
 
 let mainWindow: BrowserWindow;

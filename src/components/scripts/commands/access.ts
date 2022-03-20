@@ -1,9 +1,10 @@
 import axios from "axios";
 import cheerio from 'cheerio';
 import $ from "jquery";
-import { pageData, getRandomInt, span, listItem, appendPrompt, scrollToLink, info } from "../util";
+import { pageData, getRandomInt, span, listItem, appendPrompt, scrollToLink, scpinfo } from "../util";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
 import { ipcRenderer, shell } from "electron";
+import { scpjson } from "../../util/acs-database";
 
 const termwindow = $("#window");
 const scphistory = $("#scp-list ul");
@@ -156,7 +157,6 @@ const getUrl = async (url: string, scp: string, valid: boolean = true) => {
 
     // Create and process a request for the scp page data from the url. Will fail if it cant be accessed
     const a = axios.create();
-    const i = info(scp); // TODO: Add data from "https://elusionillusion.com/scp/acs-database/acs-database-merge.json"
     await a.get(url).then((html: { data: any; }) => {
         // get the page content
         const data = html.data;
@@ -175,7 +175,17 @@ const getUrl = async (url: string, scp: string, valid: boolean = true) => {
         mobileexit.remove();
         info.remove();
         content(".collapsible-block-link").removeAttr("href");
-        content(".anom-bar-container").replaceWith(i);
+
+        // get and load scp info for special formats (ACS) if applicable
+        if (content(".anom-bar-container") || content(".acs-hybrid-text-bar")) {
+            let classname = content(".anom-bar-container") ? ".anom-bar-container" : ".acs-hybrid-text-bar";
+            for (let index = 0; index < scpjson.length; index++) {
+                const data = scpjson[index];
+                if (data.itemNumber === scp.toUpperCase()) {
+                    setScpInfo(content(classname), data.itemNumber, data.clearance, data.clearance, data.contain, data.secondary, data.risk, data.disrupt);
+                }
+            }
+        }
 
         // append the data to the terminal and add the accessed scp to history
         termwindow.append(pageData(scp_page.html()?.trim()));
@@ -192,6 +202,43 @@ const getUrl = async (url: string, scp: string, valid: boolean = true) => {
     // gonna add a loading thingy later
     $(".page-data").addClass("loaded");
     handleClick();
+}
+
+const setScpInfo = (content: any, scp: string, level: string, clear: string, containment: string, secondary:string , risk:string , disrupt:string) => {
+    switch (level) {
+        case "1":
+            clear = "UNRESTRICTED";
+            break;
+        case "2":
+            clear = "RESTRICTED";
+            break;
+        case "3":
+            clear = "CONFIDENTIAL";
+            break;
+        case "4":
+            clear = "SECRET";
+            break;
+        case "5":
+            clear = "TOP SECRET";
+            break;
+        case "6":
+            clear = "COSMIC TOP SECRET";
+            break;    
+        default:
+            clear = "N/A";
+            break;
+    }
+    // if data has something like ${risk} etc, then it doesnt exist
+    if (secondary.startsWith("{")) {
+        secondary = "NONE";
+    }
+    if (disrupt.startsWith("{")) {
+        disrupt = "NONE";
+    }
+    if (risk.startsWith("{")) {
+        risk = "NONE";
+    }
+    content.replaceWith(scpinfo(scp, clear, level, containment.toUpperCase(), secondary.toUpperCase(), risk.toUpperCase(), disrupt.toUpperCase()));
 }
 
 export {

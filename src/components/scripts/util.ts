@@ -33,34 +33,6 @@ const appendPrompt = () => {
 }
 
 /**
- * Makes a styled prompt box
- * @param message the string to go inside the span
- * @returns a span with the class 'prompt-box' with a string inside
- */
-const promptBox = (message: string) => {
-    return "<span class=\"prompt-box\">" + message + "</span>";
-}
-
-/**
- * Makes a styled path box
- * @param message the string to go inside the span
- * @returns a span with the class 'path-box' with a string inside
- */
-const pathBox = (message: string) => {
-    return "<span class=\"path-box\">" + message + "</span>";
-}
-
-/**
- * Makes a power box. Not styled but good for typing after
- * @param prompt the prompt box
- * @param path the path box
- * @returns a span with the class 'power-box'
- */
-const powerBox = (prompt: string, path: string) => {
-    return "<span class=\"power-box\">" + prompt + path + "</span>";
-}
-
-/**
  * Makes a box for page data; Ideally for displaying scp data.
  * @param content The content to be in the page data box
  * @returns 
@@ -90,9 +62,19 @@ const span = (classname: string, message: string) => {
     return "<span class=\"" + classname + "\">" + message + "</span>";
 }
 
+const scpinfo = (scp: string, level = "N/A", clear = "N/A", containment = "N/A", secondary = "N/A", risk = "N/A", disruption = "N/A") => {
+    return `
+    <div class="scp-info-text">
+    <div class="main-text">Item #: <span class="item-number">${scp}</span> - <span class="level-name">${level}</span> (Clearance <span class="level-number">${clear}</span>)</div>
 
-const info = (scp: string, level = "N/A", clear = "N/A", containment = "N/A", secondary = "N/A", risk = "N/A", disruption = "N/A") => {
-    return `<div class=\"main-text\">Item #:<span class=\"item-number\">${scp}</span> - <span class=\"level-name\">${level}</span> (Clearance <span class=\"level-number\">${clear}</span>)</div><div class=\"containment-text\">Containment Class:<span class=\"containment-class\">${containment}</span></div><div class=\"disruption-text\">Disruption Class:<span class=\"disruption-class\">${disruption}</span></div><div class=\"secondary-containment-text\">Secondary Class:<span class=\"secondary-class\">${secondary}</span></div><div class=\"risk-text\">Risk Class:<span class=\"risk-class\">${risk}</span></div>`;
+    <div class="containment-text">Containment Class: <span class="containment-class">${containment}</span></div>
+
+    <div class="disruption-text">Disruption Class: <span class="disruption-class">${disruption}</span></div>
+
+    <div class="secondary-containment-text">Secondary Class: <span class="secondary-class">${secondary}</span></div>
+
+    <div class="risk-text">Risk Class: <span class="risk-class">${risk}</span></div>
+    </div>`;
 }
 
 /**
@@ -123,9 +105,6 @@ const scrollToLink = () => {
 }
 
 export {
-    promptBox,
-    pathBox,
-    powerBox,
     pageData,
     h3,
     h5,
@@ -137,5 +116,5 @@ export {
     scrollToLink,
     getVersion,
     appendPrompt,
-    info
+    scpinfo
 }

@@ -7,6 +7,7 @@ import { help } from "./commands/help";
 import { exit } from "./commands/exit";
 import { clear } from "./commands/clear";
 import { clear_history } from "./commands/clear_history";
+import { scp_history } from "./commands/scp_history";
 
 const termwindow = $("#window");
 
@@ -65,6 +66,14 @@ const commands_ = [
         "argsd": ["safe scps", "euclid scps", "keter scps", "thaumiel scps", "joke scps"],
         "description": "search (May be buggy) - Lists all scps or filtered scps set by flags\n\t Type 'search -help' for more info on valid flags",
         "function": search
+    },
+    {
+        "name": "scp-history",
+        "usage": "scp-history [flags] : Example: search -n 100",
+        "args": ["-n"],
+        "argsd": ["number of history items to show. Default is set at 50"],
+        "description": "scp-history - Lists history of accessed scps and links",
+        "function": scp_history
     },
     /*
     {

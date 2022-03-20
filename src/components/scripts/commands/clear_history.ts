@@ -1,9 +1,8 @@
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
-import { scrollPage } from "../util";
+import { clearScpHistory, scrollPage } from "../util";
 import $ from "jquery";
 
 const termwindow = $("#window")!;
-const scphistory = document.querySelector("#scp-list ul")!;
 
 /**
  * Clears scp history
@@ -16,7 +15,7 @@ const clear_history = (args: any[]) => {
         return;
     }
     if (!error) {
-        scphistory.textContent = "";
+        clearScpHistory();
         termwindow.append("SCP History cleared.\n");
         scrollPage();
     }

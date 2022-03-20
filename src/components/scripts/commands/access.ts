@@ -1,13 +1,12 @@
 import axios from "axios";
 import cheerio from 'cheerio';
 import $ from "jquery";
-import { pageData, getRandomInt, span, listItem, appendPrompt, scrollToLink, scpinfo } from "../util";
+import { pageData, getRandomInt, span, listItem, appendPrompt, scrollToLink, scpinfo, addScpHistory, scrollPage } from "../util";
 import { checkOptions, getHelp, helpflag, error } from "./commandUtils";
 import { ipcRenderer, shell } from "electron";
 import { scpjson } from "../../util/acs-database";
 
 const termwindow = $("#window");
-const scphistory = $("#scp-list ul");
 
 let accessfail = false;
 /**
@@ -113,12 +112,16 @@ const handleClick = async () => {
                         appendPrompt();
                         updateInput();
                         if (isvalid) scrollToLink();
+                        else scrollPage();
                         return;
                     })
                 }
                 else {
                     accessfail = true;
-                    termwindow.append(span("status-fail", `Link:${url} not available.\n`));
+                    termwindow.append(span("status-fail", `\nLink:${url} not available.\n`));
+                    appendPrompt();
+                    updateInput();
+                    scrollPage();
                     return;
                 }
             })
@@ -189,7 +192,7 @@ const getUrl = async (url: string, scp: string, valid: boolean = true) => {
 
         // append the data to the terminal and add the accessed scp to history
         termwindow.append(pageData(scp_page.html()?.trim()));
-        scphistory.append(listItem(scp.toUpperCase()));
+        addScpHistory(scp.toUpperCase());
     }).catch((e) => {
         console.log(e);
         accessfail = true;

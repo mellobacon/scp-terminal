@@ -4,6 +4,8 @@ import { accessfail } from "./commands/access";
 const termwindow_ = document.querySelector("#window")!;
 const termwindow = $("#window");
 
+let scphistory: string[] = [];
+
 /**
  * Timeout but better
  * @param ms time in milliseconds
@@ -104,6 +106,13 @@ const scrollToLink = () => {
     }
 }
 
+const addScpHistory = (scp: string) => {
+    scphistory.push(scp);
+}
+const clearScpHistory = () => {
+    scphistory = [];
+}
+
 export {
     pageData,
     h3,
@@ -116,5 +125,8 @@ export {
     scrollToLink,
     getVersion,
     appendPrompt,
-    scpinfo
+    scpinfo,
+    addScpHistory,
+    clearScpHistory,
+    scphistory
 }

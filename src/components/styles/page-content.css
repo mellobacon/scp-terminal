@@ -2,6 +2,7 @@
     background-color: transparent !important;
     color: white !important;
     background-image: none !important;
+    height: auto !important;
 }
 
 .page-data blockquote::before, .page-data .blockquote::before {
@@ -158,7 +159,7 @@ table, td, th, tr {
     padding: 10px;
 }
 table[style], td[style], th[style], tr[style] {
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 .page-data #u-adult-warning {

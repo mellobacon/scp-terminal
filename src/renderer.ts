@@ -1,4 +1,5 @@
 import { ipcRenderer } from "electron";
+import { span } from "./components/scripts/util";
 
 document.getElementById('close')!.addEventListener('click', () => {
     ipcRenderer.send('close');
@@ -35,7 +36,6 @@ document.getElementById('exit')!.addEventListener('click', () => {
     ipcRenderer.send('close');
 })
 
-let win = document.getElementById("window");
 ipcRenderer.on("unfocused", () => {
     let cmdinput = document.getElementsByClassName("cmd-input")[document.getElementsByClassName("cmd-input").length - 1];
     cmdinput.classList.add("pause-cursor-unfocused");
@@ -49,3 +49,19 @@ document.onkeydown = (e) => {
         e.preventDefault();
     }
 }
+
+const updateOnlineStatus = () => {
+    const status = document.getElementById("onlinestatus")!;
+    if (navigator.onLine) {
+        status.innerHTML = "ONLINE";
+        status.classList.toggle("online");
+    }
+    else {
+        status.innerHTML = "OFFLINE";
+        status.classList.toggle("online");
+    }
+}
+
+window.addEventListener("online", updateOnlineStatus);
+window.addEventListener("offline", updateOnlineStatus);
+updateOnlineStatus();

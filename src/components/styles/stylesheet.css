@@ -170,10 +170,15 @@ hr {
 	text-align: center;
 }
 
-.status, .statuscode {
+#onlinestatus, #statuscode {
 	font-size: 12px;
 }
-
+#onlinestatus {
+    color: red;
+}
+.online {
+    color:rgb(0, 255, 0) !important;
+}
 .statusbox {
 	border: solid 1px #ffffff70;
 	padding: 2px 5px 2px 5px;
